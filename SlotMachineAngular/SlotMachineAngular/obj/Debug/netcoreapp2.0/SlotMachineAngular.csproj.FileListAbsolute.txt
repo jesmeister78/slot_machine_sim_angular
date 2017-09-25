@@ -1,5 +1,0 @@
-C:\Users\jesse.outh-aut\Source\Repos\SlotMachineAngular\SlotMachineAngular\SlotMachineAngular\bin\Debug\netcoreapp2.0\SlotMachineAngular.deps.json
-C:\Users\jesse.outh-aut\Source\Repos\SlotMachineAngular\SlotMachineAngular\SlotMachineAngular\bin\Debug\netcoreapp2.0\SlotMachineAngular.runtimeconfig.json
-C:\Users\jesse.outh-aut\Source\Repos\SlotMachineAngular\SlotMachineAngular\SlotMachineAngular\bin\Debug\netcoreapp2.0\SlotMachineAngular.runtimeconfig.dev.json
-C:\Users\jesse.outh-aut\Source\Repos\SlotMachineAngular\SlotMachineAngular\SlotMachineAngular\obj\Debug\netcoreapp2.0\SlotMachineAngular.csprojResolveAssemblyReference.cache
-C:\Users\jesse.outh-aut\Source\Repos\SlotMachineAngular\SlotMachineAngular\SlotMachineAngular\obj\Debug\netcoreapp2.0\SlotMachineAngular.AssemblyInfo.cs
