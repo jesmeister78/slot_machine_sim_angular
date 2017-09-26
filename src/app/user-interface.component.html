@@ -2,6 +2,12 @@
     <div class="col-sm-4">
         <label class="bet-label">Bet Amount: </label>
     </div>
-    <div class="col-sm-4"><input type="text" class="bet-textbox"/></div>
-    <div class="col-sm-4"><button>Spin!</button></div>
+    <div class="col-sm-4">
+        <input type="text" class="bet-textbox" [value]="betAmount" (keyup)="validateBetAmount($event.target.value)" />
+        <label class="bet-label">Last Bet: </label>
+        <label class="bet-label">{{betAmount}} </label>
+    </div>
+    <div class="col-sm-4">
+        <button (click)="spin()">Spin!</button>
+    </div>
 </div>
