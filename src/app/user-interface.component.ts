@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class UserInterfaceComponent {
 
     betAmount = 0;
+
     spin() {
         alert('yo!');
     }
