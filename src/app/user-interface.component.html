@@ -3,11 +3,11 @@
         <label class="bet-label">Bet Amount: </label>
     </div>
     <div class="col-sm-4">
-        <input type="text" class="bet-textbox" [(ngModel)]="betAmount" (blur)="validateBetAmount($event.target.value)" />
+        <input type="text" class="bet-textbox" [(ngModel)]="betAmount"  />
         <label class="bet-label">Last Bet: </label>
         <label class="bet-label">{{betAmount}} </label>
     </div>
     <div class="col-sm-4">
-        <button (click)="spin()">Spin!</button>
+        <button (click)="spin($event.target.value)">Spin!</button>
     </div>
 </div>

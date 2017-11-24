@@ -1,4 +1,6 @@
 .container{
-    background-image: "url(../assets/images/SlotMachine_Good.gif)";
+    width:100%;
+    background-image: url('/assets/SlotMachine_Good_Clear.gif');
+    background-size:cover;
     border: 1px solid red;
 }

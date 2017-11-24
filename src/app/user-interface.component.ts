@@ -9,7 +9,8 @@ export class UserInterfaceComponent {
 
     betAmount = 0;
 
-    spin() {
+    spin(amt) {
+        this.validateBetAmount(amt);
         alert('yo!');
     }
 

@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
 })
 
 export class SymbolComponent {
-    source = '../assets/images/Crown.gif';
+    source = '../assets/Crown.gif';
 }
