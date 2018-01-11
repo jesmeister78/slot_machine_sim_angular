@@ -15,17 +15,17 @@ import { SpinResultService } from './spin-result.service';
 
 export class AppComponent implements OnInit {
 
-  @Input() numRows: number;
-  @Input() resultMap: number[][];
+  numRows: number;
+  resultMap: number[][];
 
   title = 'Integrator Angular';
 
 /**
  *
  */
-constructor(private spinResultService: SpinResultService) {
+  constructor(private spinResultService: SpinResultService) {
 
-}
+  }
 
   ngOnInit(): void {
     // we need to get the first grid of symbols to display
@@ -34,4 +34,5 @@ constructor(private spinResultService: SpinResultService) {
     // this will depend on the numRows, numCols and the symbolMap
     // the symbolMap is the representation of the SymbolType enum from the server
   }
+
 }

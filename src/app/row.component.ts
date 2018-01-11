@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { SpinResultService } from './spin-result.service';
 
 @Component({
     selector: 'app-row',
@@ -6,6 +8,19 @@ import { Component, Input } from '@angular/core';
 })
 
 export class RowComponent {
+    @Input() rowSymbols: number[];
 
-    @Input() rowIndex: number;
+    constructor(private spinResultService: SpinResultService) {
+
+    }
+
+    getRowSymbolNames() {
+        const rowSymbolNames: string[] = [];
+        const allSymbolNames = this.spinResultService.getSymbolNames();
+        for (let i = 0; i < this.rowSymbols.length; i++) {
+          rowSymbolNames.push(allSymbolNames[this.rowSymbols[i]]);
+        }
+        // alert(rowSymbolNames);
+        return rowSymbolNames;
+      }
 }

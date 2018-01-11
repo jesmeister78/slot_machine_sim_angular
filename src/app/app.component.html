@@ -2,7 +2,7 @@
 
 <div class="container">
   <div class="display-area">
-    <app-row *ngFor="let resultRow of resultMap" [rowIndex]="index"></app-row>
+    <app-row *ngFor="let resultRow of resultMap" [rowSymbols]="resultRow"></app-row>
     <app-user-interface></app-user-interface>
   </div>
 </div>
