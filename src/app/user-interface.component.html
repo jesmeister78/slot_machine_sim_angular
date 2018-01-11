@@ -1,4 +1,8 @@
-<div class="row">
+<div class="row user-interface">
+    <div class="col-sm-4">
+        <label class="bet-label">Balance: </label>
+        <label class="bet-label">{{balance}} </label>
+    </div>
     <div class="col-sm-4">
         <label class="bet-label">Bet Amount: </label>
     </div>
@@ -8,6 +12,6 @@
         <label class="bet-label">{{betAmount}} </label>
     </div>
     <div class="col-sm-4">
-        <button (click)="spin($event.target.value)">Spin!</button>
+        <button (click)="spin(betAmount)">Spin!</button>
     </div>
 </div>

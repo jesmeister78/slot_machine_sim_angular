@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-symbol',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
 })
 
 export class SymbolComponent {
-    source = '../assets/Crown.gif';
+
+    @Input() symbolName: string;
 }

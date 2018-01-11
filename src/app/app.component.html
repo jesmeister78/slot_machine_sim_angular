@@ -1,60 +1,8 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-</div>
+
 <div class="container">
-  <div class="row">
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
+  <div class="display-area">
+    <app-row *ngFor="let resultRow of resultMap" [rowIndex]="index"></app-row>
+    <app-user-interface></app-user-interface>
   </div>
-  <div class="row">
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
-      <div class="col-sm-2">
-        <app-symbol></app-symbol> 
-      </div>
-  </div>
-  <app-user-interface></app-user-interface>
 </div>
