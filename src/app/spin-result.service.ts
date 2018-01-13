@@ -12,7 +12,7 @@ import { LoggerService } from './logger.service';
 @Injectable()
 export class SpinResultService {
 
-    private spinResultUrl = 'http://localhost:5512/api/values';
+    private spinResultUrl = 'http://localhost:5513/api/values';
     /**
      *
      */
@@ -24,7 +24,7 @@ export class SpinResultService {
         return this.http.get(this.spinResultUrl)
         .toPromise()
         .then(response => {
-            const resultMap = response.json().data as number[][];
+            const resultMap = response.json().resultMap as number[][];
             this.loggerService.log(`getSpinResultAsync() - result map returned from server: ${resultMap}`);
             return resultMap;
         },
