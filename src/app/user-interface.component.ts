@@ -1,9 +1,11 @@
 import { Component, Output } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Input } from '@angular/core';
+
 import { SpinResultService } from './spin-result.service';
-import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { DefaultParams } from './default-params';
 import { LoggerService } from './logger.service';
-import { EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-user-interface',
@@ -13,8 +15,8 @@ import { EventEmitter } from '@angular/core';
 
 export class UserInterfaceComponent implements OnInit {
 
-    @Output()
-    redraw = new EventEmitter<boolean>();
+    @Input() showSpinButton: boolean;
+    @Output() redraw = new EventEmitter<boolean>();
     betAmount: number;
     balance: number;
     defaults: DefaultParams;

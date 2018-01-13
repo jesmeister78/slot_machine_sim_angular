@@ -12,6 +12,11 @@
         <label class="bet-label">{{betAmount}} </label>
     </div>
     <div class="col-sm-4">
-        <button (click)="spin(betAmount)">Spin!</button>
+        <div *ngIf="!showSpinButton">
+            <label class="bet-label">Testing your luck...</label>
+        </div>
+        <div *ngIf="showSpinButton">
+            <button (click)="spin(betAmount)">Spin!</button>
+        </div>
     </div>
 </div>

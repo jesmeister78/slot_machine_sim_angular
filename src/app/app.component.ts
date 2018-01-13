@@ -21,6 +21,8 @@ export class AppComponent implements OnInit {
   // string representation of the symbolType enum from the server
   allSymbolNames: string[];
 
+  isBusy = false;
+
 /**
  *
  */
@@ -40,8 +42,10 @@ export class AppComponent implements OnInit {
   }
 
   getResultMap() {
+    this.isBusy = true;
     this.spinResultService.getSpinResultAsync().then( results => {
       this.resultMap = results;
+      this.isBusy = false;
     });
   }
 
