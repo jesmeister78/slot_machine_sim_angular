@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { SpinResultService } from './spin-result.service';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { DefaultParams } from './default-params';
+import { LoggerService } from './logger.service';
+import { EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-user-interface',
@@ -11,14 +13,13 @@ import { DefaultParams } from './default-params';
 
 export class UserInterfaceComponent implements OnInit {
 
-    resultMap: number[][];
+    @Output()
+    redraw = new EventEmitter<boolean>();
     betAmount: number;
     balance: number;
     defaults: DefaultParams;
 
     ngOnInit(): void {
-        // get the initial result map from the server
-        this.resultMap = this.spinResultService.getSpinResult();
         // get the defaults from the server
         this.defaults = this.spinResultService.getDefaults();
         // initialise the balance
@@ -27,19 +28,21 @@ export class UserInterfaceComponent implements OnInit {
     /**
      *
      */
-    constructor(private spinResultService: SpinResultService) {
+    constructor(private spinResultService: SpinResultService, private loggerService: LoggerService) {
     }
 
     spin(amt) {
         if (this.validateBetAmount(amt)) {
+            this.loggerService.log('spin: bet amount: ' + amt);
+            // emit an event so that the app component can redraw the symbol map
+            this.redraw.emit(true);
             this.balance -= amt;
-            alert('balance: ' + this.balance + 'amt: ' + amt);
         }
     }
 
     validateBetAmount(val) {
         if (isNaN(val)) {
-            alert('cannot bet that');
+            this.loggerService.log('spin: invalid bet amount: ' + val);
             this.betAmount = 0;
             return false;
         }
