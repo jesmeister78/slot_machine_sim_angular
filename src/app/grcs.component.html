@@ -1,0 +1,24 @@
+<div class="grcs-form">
+    <div>
+        <div>
+            Please indicate (by entering a number in the textbox) the extent to which you agree
+            with the value expressed in each statement
+        </div>
+        <ul>
+            <li>1 = strongly disagree</li>
+            <li>2 = moderately disagree</li>
+            <li>3 = mildly disagree</li>
+            <li>4 = neither agree or disagree</li>
+            <li>5 = mildly agree</li>
+            <li>6 = moderately agree</li>
+            <li>7 = strongly agree</li>
+        </ul>
+    </div>
+    <div>
+        <app-grcs-question *ngFor="let questions of getQuestionsToDisplay()" 
+            [questionText]="question" [questionId]="index+1" ></app-grcs-question>
+    </div>
+    <div>
+        <button (click)="submitGrcsAnswers()">Submit Answers</button>
+    </div>
+</div>

@@ -2,7 +2,12 @@
 
 <div class="container">
   <div class="display-area">
-    <app-row *ngFor="let resultRow of resultMap;let rowIndex = index" [symbolNames]="getRowSymbolNames(rowIndex)"></app-row>
-    <app-user-interface [isBusy]="isBusy" (redraw)="redraw($event)"></app-user-interface>
+    <div *ngIf="showGrcs">
+        <app-grcs [tickCount]="tickCount"></app-grcs>
+    </div>
+    <div *ngIf="!showGrcs">
+        <app-row *ngFor="let resultRow of resultMap;let rowIndex = index" [symbolNames]="getRowSymbolNames(rowIndex)"></app-row>
+        <app-user-interface [isBusy]="isBusy" (redraw)="redraw($event)"></app-user-interface>
+    </div>
   </div>
 </div>
