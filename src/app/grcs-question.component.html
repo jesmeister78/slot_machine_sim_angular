@@ -3,6 +3,6 @@
         <label class="grcs-question">{{questionText}}</label>
     </div>
     <div>
-        <input type="text" class="grcs-question-textbox" [ngModel]="answer" (ngModelChange)="updateResponse($event)"  />
+        <input type="text" class="grcs-question-textbox" [ngModel]="answer" (blur)="updateResponse($event)"  />
     </div>
 </div>
