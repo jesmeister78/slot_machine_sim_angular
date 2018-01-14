@@ -15,7 +15,7 @@ import { LoggerService } from './logger.service';
 
 export class UserInterfaceComponent implements OnInit {
 
-    @Input() showSpinButton: boolean;
+    @Input('isBusy') isBusy: boolean;
     @Output() redraw = new EventEmitter<boolean>();
     betAmount: number;
     balance: number;
