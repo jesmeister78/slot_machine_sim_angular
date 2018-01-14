@@ -1,13 +1,21 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
 <div class="container">
+    <div *ngIf="!isRegistered">
+        <app-registration (onPlayerRegistered)="startPlaying($event)"></app-registration>
+      </div>
   <div class="display-area">
-    <div *ngIf="showGrcs">
-        <app-grcs [tickCount]="tickCount"></app-grcs>
-    </div>
-    <div *ngIf="!showGrcs">
-        <app-row *ngFor="let resultRow of resultMap;let rowIndex = index" [symbolNames]="getRowSymbolNames(rowIndex)"></app-row>
-        <app-user-interface [isBusy]="isBusy" (redraw)="redraw($event)"></app-user-interface>
+   
+    <div *ngIf="isRegistered">
+      <div *ngIf="showGrcs" class="symbol-panel">
+          <app-grcs [tickCount]="tickCount" (onAnswersSubmitted)="updateGrcsResponses($event)"></app-grcs>
+      </div>
+      <div *ngIf="!showGrcs" class="symbol-panel">
+        <div>
+            <app-row *ngFor="let resultRow of resultMap;let rowIndex = index" [symbolNames]="getRowSymbolNames(rowIndex)"></app-row>
+        </div>
+          <app-user-interface [isBusy]="isBusy" (onSpin)="doSpin($event)"></app-user-interface>
+      </div>
     </div>
   </div>
 </div>

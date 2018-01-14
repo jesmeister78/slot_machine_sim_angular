@@ -1,4 +1,4 @@
-<div class="grcs-form">
+<div class="symbol-panel" style="color:white;">
     <div>
         <div>
             Please indicate (by entering a number in the textbox) the extent to which you agree
@@ -15,10 +15,10 @@
         </ul>
     </div>
     <div>
-        <app-grcs-question *ngFor="let questions of getQuestionsToDisplay()" 
-            [questionText]="question" [questionId]="index+1" ></app-grcs-question>
+        <app-grcs-question *ngFor="let question of getQuestionsToDisplay(); let qIndex = index;" 
+            [questionText]="question" [questionId]="qIndex+1" ></app-grcs-question>
     </div>
-    <div>
+    <div class="grcs-submit" style="margin-top:10px;">
         <button (click)="submitGrcsAnswers()">Submit Answers</button>
     </div>
 </div>

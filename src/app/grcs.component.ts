@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { getGRCSQuestions } from './grcs-data';
 import { RNG } from './rng';
 import { GrcsQuestionResponse } from './grcs-question-response';
+import { EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-grcs',
@@ -10,6 +11,8 @@ import { GrcsQuestionResponse } from './grcs-question-response';
 
 export class GrcsComponent {
     @Input() tickCount: number;
+
+    @Output() onAnswersSubmitted = new EventEmitter<GrcsQuestionResponse[]>();
 
     private totalNumQuestions = 20;
 
@@ -30,7 +33,7 @@ export class GrcsComponent {
     }
 
     submitGrcsAnswers() {
-
+        this.onAnswersSubmitted.emit(this.responses);
     }
 
     getQuestionsToDisplay() {

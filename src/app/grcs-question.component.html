@@ -1,5 +1,8 @@
 <div>
-    <label class="grcs-question">{{questionText}}</label>
-    <label class="bet-label">Last Bet: </label>
-    <input type="text" class="grcs-question-textbox" [ngModel]="answer" (ngModelChange)="updateResponse($event)"  />
+    <div>
+        <label class="grcs-question">{{questionText}}</label>
+    </div>
+    <div>
+        <input type="text" class="grcs-question-textbox" [ngModel]="answer" (ngModelChange)="updateResponse($event)"  />
+    </div>
 </div>

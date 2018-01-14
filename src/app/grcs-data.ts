@@ -25,5 +25,7 @@ export function getGRCSQuestions(questionNumbers: number[]) {
         'If I keep changing my numbers, I have less chances of winning than if I keep the same numbers every time'
     ];
 
-    return questions;
+    const applicableQuestions = [];
+    questionNumbers.forEach(q => applicableQuestions.push(questions[q]));
+    return applicableQuestions;
 }

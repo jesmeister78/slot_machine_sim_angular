@@ -1,0 +1,5 @@
+<div>
+    <label class="registration-label">Please enter your email address to begin playing</label>
+    <input type="email" class="registration-textbox" [(ngModel)]="playerId" [email]="true" />
+    <button (click)="registerPlayer(playerId)">Start Playing!</button>
+</div>

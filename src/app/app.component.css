@@ -1,17 +1,36 @@
 .container{
     width:100%;
-    height:80%;
-    background-image: url('/assets/SlotMachine_Good_Clear.gif');
-    background-size:cover;
     border: 1px solid red;
 }
 
 .display-area{
-    height: 30%;
-    width: 85%;
-    /* margin-top: 10%; */
+    height:600px;
     border: 1px solid green;
+    background-image: url('/assets/sm-bg.jpg');
+    background-size:cover;
 }
+
+
+.symbol-panel{
+    width:500px;
+    margin-top:35px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.grcs-form{
+    background-color: white;
+}
+
+.symbol{
+    height:100px;
+    width:100px;
+}
+
+.grcs-submit{
+    margin-top:10px;
+}
+
 .col-xs-5ths,
 .col-sm-5ths,
 .col-md-5ths,

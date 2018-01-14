@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { RegistrationComponent } from './registration.component';
 import { RowComponent } from './row-display.component';
 import { SymbolComponent } from './symbol.component';
 import { UserInterfaceComponent } from './user-interface.component';
@@ -16,6 +17,7 @@ import { LoggerService } from './logger.service';
 @NgModule({
   declarations: [
     AppComponent,
+    RegistrationComponent,
     RowComponent,
     SymbolComponent,
     UserInterfaceComponent,

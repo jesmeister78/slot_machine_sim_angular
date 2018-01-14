@@ -6,6 +6,7 @@ import { Input } from '@angular/core';
 import { SpinResultService } from './spin-result.service';
 import { DefaultParams } from './default-params';
 import { LoggerService } from './logger.service';
+import { BetRecord } from './bet-record';
 
 @Component({
     selector: 'app-user-interface',
@@ -16,10 +17,12 @@ import { LoggerService } from './logger.service';
 export class UserInterfaceComponent implements OnInit {
 
     @Input('isBusy') isBusy: boolean;
-    @Output() redraw = new EventEmitter<boolean>();
+    @Output() onSpin = new EventEmitter<BetRecord>();
     betAmount: number;
     balance: number;
     defaults: DefaultParams;
+    numRows: number;
+    playerId: string;
 
     ngOnInit(): void {
         // get the defaults from the server
@@ -37,9 +40,25 @@ export class UserInterfaceComponent implements OnInit {
         if (this.validateBetAmount(amt)) {
             this.loggerService.log('spin: bet amount: ' + amt);
             // emit an event so that the app component can redraw the symbol map
-            this.redraw.emit(true);
             this.balance -= amt;
+            const bet = this.createBetRecord();
+            this.onSpin.emit(bet);
         }
+    }
+
+    createBetRecord() {
+
+        const bet = new BetRecord();
+        const dt = new Date();
+        const utcDate = dt.toUTCString();
+
+        bet.balance = this.balance;
+        bet.betAmount = this.betAmount;
+        bet.numRows = this.numRows;
+        bet.playerId = this.playerId;
+        bet.timestamp = utcDate;
+
+        return bet;
     }
 
     validateBetAmount(val) {
