@@ -18,6 +18,8 @@ import { GrcsQuestionResponse } from './grcs-question-response';
 
 export class AppComponent implements OnInit {
 
+  balance: number;
+
   numRows: number;
   // positions of the symbols determined by the server
   resultMap: number[][];
@@ -32,7 +34,7 @@ export class AppComponent implements OnInit {
   // counts the timer ticks
   tickCount: number;
   // timer interval 5 minutes
-  timerInterval = 5000; // 1000 * 60 * 5;
+  timerInterval = 1000 * 60 * 5;
   playerId: string;
   isRegistered: boolean;
 
@@ -83,8 +85,21 @@ export class AppComponent implements OnInit {
   getResultMap() {
     this.isBusy = true;
     this.spinResultService.getSpinResultAsync()
-      .then( results => {
-        this.resultMap = results;
+      .then( result => {
+        this.resultMap = result.resultMap;
+        this.balance = result.initialBalance;
+
+        this.isBusy = false;
+      });
+  }
+
+  getBetResult(betAmount: number, numRows: number) {
+    this.isBusy = true;
+    this.spinResultService.getBetResultAsync(betAmount, numRows)
+      .then( result => {
+        this.resultMap = result.resultMap;
+        this.balance += result.winAmount;
+
         this.isBusy = false;
       });
   }
@@ -101,7 +116,7 @@ export class AppComponent implements OnInit {
       timestamp: ${betRecord.timestamp},
       playerId`);
     // get the new symbol map to redraw
-    this.getResultMap();
+    this.getBetResult(betRecord.betAmount, betRecord.numRows);
   }
 
   getRowSymbolNames(rowIndex: number) {

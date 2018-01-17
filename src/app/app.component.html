@@ -14,7 +14,7 @@
         <div>
             <app-row *ngFor="let resultRow of resultMap;let rowIndex = index" [symbolNames]="getRowSymbolNames(rowIndex)"></app-row>
         </div>
-          <app-user-interface [isBusy]="isBusy" (onSpin)="doSpin($event)"></app-user-interface>
+          <app-user-interface [isBusy]="isBusy" [balance]="balance" (onSpin)="doSpin($event)"></app-user-interface>
       </div>
     </div>
   </div>

@@ -17,9 +17,11 @@ import { BetRecord } from './bet-record';
 export class UserInterfaceComponent implements OnInit {
 
     @Input('isBusy') isBusy: boolean;
+    @Input() balance: number;
+
     @Output() onSpin = new EventEmitter<BetRecord>();
+
     betAmount: number;
-    balance: number;
     defaults: DefaultParams;
     numRows: number;
     playerId: string;
@@ -27,8 +29,6 @@ export class UserInterfaceComponent implements OnInit {
     ngOnInit(): void {
         // get the defaults from the server
         this.defaults = this.spinResultService.getDefaults();
-        // initialise the balance
-        this.balance = this.defaults.initialBalance;
     }
     /**
      *

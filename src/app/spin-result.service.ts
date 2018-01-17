@@ -8,59 +8,73 @@ import { getDefaults } from './test-result-map';
 import { getSymbolNames } from './test-result-map';
 import {RNG} from './rng';
 import { LoggerService } from './logger.service';
+import { BetResultModel } from './bet-result.model';
+import { InitModel } from './init.model';
 
 @Injectable()
 export class SpinResultService {
 
     private spinResultUrl = 'http://localhost:5513/api/values';
+    private betResultUrl = 'http://localhost:5513/api/values/';
     /**
      *
      */
     constructor(private http: Http, private loggerService: LoggerService) {
     }
 
-    getSpinResultAsync(): Promise<number[][]> {
+    getSpinResultAsync(): Promise<InitModel> {
         this.loggerService.log(`getSpinResultAsync() - getting resultMap from server`);
         return this.http.get(this.spinResultUrl)
         .toPromise()
         .then(response => {
-            const resultMap = response.json().resultMap as number[][];
-            this.loggerService.log(`getSpinResultAsync() - result map returned from server: ${resultMap}`);
-            return resultMap;
+            const result = response.json() as InitModel;
+            this.loggerService.log(`getSpinResultAsync() - result map returned from server: ${result.resultMap}`);
+            return result;
         },
         error => {
             this.loggerService.log(`getSpinResultAsync() - error returned from server: ${error}`);
             return Promise.reject('Server returned an error please check the console');
         });
+    }
 
-
-
-         /*  const resultMap = this.getSpinResult();
-
-         return new Promise<number[][]>(resolve => {
-             setTimeout(() => {
-                 resolve (resultMap);
-             }, 1500);
-         }); */
-     }
+    getBetResultAsync(betAmount: number, numRows: number): Promise<BetResultModel> {
+        this.loggerService.log(`getSpinResultAsync() - getting bet result from server`);
+        const betResulturl = this.spinResultUrl + `/${betAmount}/${numRows}`;
+        return this.http.get(betResulturl)
+        .toPromise()
+        .then(response => {
+            const resp = response.json();
+            const resultMap = resp.resultMap as number[][];
+            const winAmount = resp.winAmount as number;
+            const betResult = new BetResultModel();
+            betResult.resultMap = resultMap;
+            betResult.winAmount = winAmount;
+            this.loggerService.log(`getBetResultAsync() - result map returned from server: ${resultMap}`);
+            return betResult;
+        },
+        error => {
+            this.loggerService.log(`getBetResultAsync() - error returned from server: ${error}`);
+            return Promise.reject('Server returned an error please check the console');
+        });
+    }
 
     getSymbolNames() {
         return getSymbolNames();
-   }
+    }
 
-   getSpinResult() {
-       const rng = new RNG(242434343);
-        const resultMap = spinResult();
-        for (let i = 0; i < resultMap.length; i++) {
-            for (let j = 0; j < resultMap[0].length; j++) {
-                resultMap[i][j] = rng.nextInt(0, 8);
+    getSpinResult() {
+        const rng = new RNG(242434343);
+            const resultMap = spinResult();
+            for (let i = 0; i < resultMap.length; i++) {
+                for (let j = 0; j < resultMap[0].length; j++) {
+                    resultMap[i][j] = rng.nextInt(0, 8);
+                }
             }
-        }
-        return  resultMap;
-   }
+            return  resultMap;
+    }
 
-   getDefaults() {
-        return getDefaults();
-   }
+    getDefaults() {
+            return getDefaults();
+    }
 }
 
