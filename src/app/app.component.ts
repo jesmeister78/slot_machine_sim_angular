@@ -133,7 +133,7 @@ export class AppComponent implements OnInit {
     this.spinResultService.getBetResultAsync(betAmount, numRows)
       .then( result => {
         this.resultMap = result.resultMap;
-        this.balance += result.winAmount;
+        this.balance =  parseFloat((this.balance + result.winAmount).toFixed(2));
 
         this.isBusy = false;
       });
