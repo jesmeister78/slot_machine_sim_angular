@@ -1,20 +1,25 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
 <div class="container">
-    <div *ngIf="!isRegistered">
-        <app-registration (onPlayerRegistered)="startPlaying($event)"></app-registration>
-      </div>
+  <div *ngIf="!isRegistered">
+      <app-registration (onPlayerRegistered)="startPlaying($event)"></app-registration>
+  </div>
   <div class="display-area">
-   
     <div *ngIf="isRegistered">
       <div *ngIf="showGrcs" class="symbol-panel">
           <app-grcs [tickCount]="tickCount" (onAnswersSubmitted)="updateGrcsResponses($event)"></app-grcs>
       </div>
-      <div *ngIf="!showGrcs" class="symbol-panel">
+      <div *ngIf="showInfoPopUp" class="symbol-panel">
+          <app-info-popup [tickCount]="tickCount" (onPopUpClosed)="closeInfoPopUp()"></app-info-popup>
+      </div>
+      <div *ngIf="showStatsPopUp" class="symbol-panel">
+          <app-stats-popup [numBets]="getNumBets()" [timePlayed]="getTimePlayed()" (onPopUpClosed)="closeInfoPopUp()"></app-stats-popup>
+      </div>
+      <div *ngIf="!showGrcs && !showInfoPopUp && !showStatsPopUp" class="symbol-panel">
         <div>
             <app-row *ngFor="let resultRow of resultMap;let rowIndex = index" [symbolNames]="getRowSymbolNames(rowIndex)"></app-row>
         </div>
-          <app-user-interface [isBusy]="isBusy" [balance]="balance" (onSpin)="doSpin($event)"></app-user-interface>
+            <app-user-interface [isBusy]="isBusy" [balance]="balance" (onSpin)="doSpin($event)"></app-user-interface>
       </div>
     </div>
   </div>

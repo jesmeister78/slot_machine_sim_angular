@@ -10,6 +10,9 @@ import { SymbolComponent } from './symbol.component';
 import { UserInterfaceComponent } from './user-interface.component';
 import { GrcsComponent } from './grcs.component';
 import { GrcsQuestionComponent } from './grcs-question.component';
+import { InfoPopUpComponent } from './info-popup.component';
+import { InfoPopUpMsgComponent } from './info-popup-msg.component';
+import { StatsPopUpComponent } from './stats-popup.component';
 
 import { SpinResultService } from './spin-result.service';
 import { LoggerService } from './logger.service';
@@ -22,7 +25,10 @@ import { LoggerService } from './logger.service';
     SymbolComponent,
     UserInterfaceComponent,
     GrcsComponent,
-    GrcsQuestionComponent
+    GrcsQuestionComponent,
+    InfoPopUpComponent,
+    InfoPopUpMsgComponent,
+    StatsPopUpComponent
   ],
   imports: [
     BrowserModule,

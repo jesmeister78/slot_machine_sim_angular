@@ -22,7 +22,7 @@ export class SpinResultService {
     constructor(private http: Http, private loggerService: LoggerService) {
     }
 
-    getSpinResultAsync(): Promise<InitModel> {
+    initAsync(): Promise<InitModel> {
         this.loggerService.log(`getSpinResultAsync() - getting resultMap from server`);
         return this.http.get(this.spinResultUrl)
         .toPromise()

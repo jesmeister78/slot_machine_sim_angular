@@ -1,22 +1,49 @@
 <div class="row user-interface">
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <label class="bet-label">Balance: </label>
-        <label class="bet-label">{{balance}} </label>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <label class="bet-label">Bet Amount: </label>
     </div>
-    <div class="col-sm-3">
-        <input type="text" class="bet-textbox" [(ngModel)]="betAmount"  />
+    <div class="col-sm-2">
         <label class="bet-label">Last Bet: </label>
-        <label class="bet-label">{{betAmount}} </label>
     </div>
-    <div class="col-sm-3">
+    
+    <div class="col-sm-2">
+        <label class="bet-label">No. Rows: </label>
+    </div>
+    <div class="col-sm-2">
+        <div *ngIf="!isBusy">
+            <button (click)="spin(betAmount)">Spin!</button>
+        </div>
+    </div>
+    <div class="col-sm-2">
         <div *ngIf="isBusy">
             <label class="bet-label">Testing your luck...</label>
         </div>
-        <div *ngIf="!isBusy">
-            <button (click)="spin(betAmount)">Spin!</button>
+    </div>
+</div>
+<div class="row user-interface">
+    <div class="col-sm-2">
+        <label class="bet-label">{{balance}} </label>
+    </div>
+    <div class="col-sm-2">
+        <input type="text" class="bet-textbox" [(ngModel)]="betAmount"  style="width:100%" />
+    </div>
+    <div class="col-sm-2">
+        <label class="bet-label">{{betAmount}} </label>
+    </div>
+    <div class="col-sm-2">
+        <input type="text" class="bet-textbox" [(ngModel)]="numRows" style="width:100%" />
+    </div>
+    <div class="col-sm-2">
+        <div *ngIf="isBusy">
+            <label class="bet-label">Testing your luck...</label>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div *ngIf="isBusy">
+            <label class="bet-label">Testing your luck...</label>
         </div>
     </div>
 </div>

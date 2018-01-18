@@ -26,6 +26,10 @@ export function getSymbolNames() {
         'Horseshoe',
         'Pear',
         'Star',
-        'Strawberry'
+        'Strawberry',
+        'Cherries',
+        'Orange',
+        'Seven',
+        'Watermelon'
     ];
 }

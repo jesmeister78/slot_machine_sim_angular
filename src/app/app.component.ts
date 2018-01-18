@@ -17,6 +17,17 @@ import { GrcsQuestionResponse } from './grcs-question-response';
 })
 
 export class AppComponent implements OnInit {
+  // players are randomised into 3 groups - from server
+  playerGroup: number;
+
+  playerGroups = {
+    // answer GRCS questions only
+    'Control': 1,
+    // see the fact/fiction messages then answer the GRCS questions
+    'Information': 2,
+    // see how long they have been playing and how many bets they have made then answer the GRCS questions
+    'SelfAppraisal': 3
+  };
 
   balance: number;
 
@@ -31,10 +42,17 @@ export class AppComponent implements OnInit {
   isBusy = false;
   // determine whether to hide the symbol display and user interface to show the grcs questionaire
   showGrcs = false;
+
+  // determine whether to show the popup for the Information player group
+  showInfoPopUp = false;
+  // determine whether to show the popup for the SelfAppraisal player group
+  showStatsPopUp = false;
   // counts the timer ticks
   tickCount: number;
-  // timer interval 5 minutes
-  timerInterval = 1000 * 60 * 5;
+  // number of minutes between timer ticks - from server
+  timerIntervalMinutes: number;
+  // timer interval in miliseconds
+  timerInterval: number;
   playerId: string;
   isRegistered: boolean;
 
@@ -50,7 +68,6 @@ export class AppComponent implements OnInit {
     this.allSymbolNames = this.spinResultService.getSymbolNames();
 
     this.tickCount = 0;
-
   }
 
 
@@ -59,17 +76,31 @@ export class AppComponent implements OnInit {
       this.isRegistered = true;
        // we need to get the first grid of symbols to display
     // we will start with a random result map that shows maxCols*maxRows symbols
-    this.getResultMap();
+    this.init();
     this.loggerService.log(`init - default result map: ${this.resultMap}`);
-    this.showGrcsOnTimerTick();
 
   }
 
-  showGrcsOnTimerTick() {
-    setTimeout(() => {
-        this.tickCount ++;
-        this.showGrcs = true;
-    }, this.timerInterval);
+  showPopUpOnTimerTick() {
+      setTimeout(() => {
+          this.tickCount ++;
+          if (this.isInControlGroup()) {
+            this.showGrcs = true;
+          }
+          if (this.isInInformationGroup()) {
+            this.showInfoPopUp = true;
+          }
+          if (this.isInSelfAppraisalGroup()) {
+            this.showStatsPopUp = true;
+          }
+      }, this.timerInterval);
+  }
+
+  // once the user closes the info popup they need to answer the grcs questions
+  closeInfoPopUp() {
+      this.showInfoPopUp = false;
+      this.showStatsPopUp = false;
+      this.showGrcs = true;
   }
 
   updateGrcsResponses(responses: GrcsQuestionResponse[]) {
@@ -79,17 +110,21 @@ export class AppComponent implements OnInit {
     this.showGrcs = false;
 
     // start the timer again so the next set of grcs questions can be displayed
-    this.showGrcsOnTimerTick();
+    this.showPopUpOnTimerTick();
   }
 
-  getResultMap() {
+  init() {
     this.isBusy = true;
-    this.spinResultService.getSpinResultAsync()
+    this.spinResultService.initAsync()
       .then( result => {
         this.resultMap = result.resultMap;
         this.balance = result.initialBalance;
+        this.playerGroup = result.playerGroup;
+        this.timerIntervalMinutes = result.timerInterval;
+        this.timerInterval = 1000 * 60 * this.timerIntervalMinutes;
 
         this.isBusy = false;
+        this.showPopUpOnTimerTick();
       });
   }
 
@@ -105,7 +140,6 @@ export class AppComponent implements OnInit {
   }
 
   doSpin(betRecord: BetRecord) {
-
     // log the record of the spin
     this.betResults.push(betRecord);
     this.loggerService.log(`doSpin() -
@@ -119,6 +153,14 @@ export class AppComponent implements OnInit {
     this.getBetResult(betRecord.betAmount, betRecord.numRows);
   }
 
+  getNumBets() {
+    return this.betResults.length;
+  }
+
+  getTimePlayed() {
+    return this.tickCount * this.timerIntervalMinutes;
+  }
+
   getRowSymbolNames(rowIndex: number) {
     const rowSymbolNames: string[] = [];
     for (let i = 0; i < this.resultMap[rowIndex].length; i++) {
@@ -126,5 +168,15 @@ export class AppComponent implements OnInit {
     }
     // alert(rowSymbolNames);
     return rowSymbolNames;
+  }
+
+  private isInControlGroup() {
+    return this.playerGroup === this.playerGroups.Control;
+  }
+  private isInInformationGroup() {
+    return this.playerGroup === this.playerGroups.Information;
+  }
+  private isInSelfAppraisalGroup() {
+    return this.playerGroup === this.playerGroups.SelfAppraisal;
   }
 }
