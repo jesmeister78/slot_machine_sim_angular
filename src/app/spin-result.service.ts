@@ -14,8 +14,8 @@ import { InitModel } from './init.model';
 @Injectable()
 export class SpinResultService {
 
-    private spinResultUrl = 'http://localhost:5513/api/values';
-    private betResultUrl = 'http://localhost:5513/api/values/';
+    private spinResultUrl = 'http://localhost:21452/api/values';
+    private betResultUrl = 'http://localhost:21452/api/values/';
     /**
      *
      */
