@@ -12,6 +12,7 @@ export class GrcsQuestionComponent {
 
     @Input() questionText: string;
     @Input() questionId: number;
+    @Input() grcsScores: number[];
     @Output() onResponse = new EventEmitter<GrcsQuestionResponse>();
 
     answer: number;

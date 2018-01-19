@@ -18,6 +18,8 @@ export class GrcsComponent {
 
     responses: GrcsQuestionResponse[] = [];
 
+    grcsScores: number[] = [1, 2, 3, 4, 5, 6, 7];
+
     onResponse(response) {
         const numMinutesPlayed = this.tickCount * 5;
         // check if we already have a response for this question this timer tick

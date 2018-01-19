@@ -2,7 +2,13 @@
     <div>
         <label class="grcs-question">{{questionText}}</label>
     </div>
-    <div>
-        <input type="text" class="grcs-question-textbox" [ngModel]="answer" (blur)="updateResponse($event)"  />
-    </div>
+   
+    <form class="form-inline">
+
+        <div class="form-group"  *ngFor="let score of grcsScores" style="margin-left:20px;">
+            <input name="group20" type="radio" id="{{score}}"  (click)="updateResponse(score)" />
+            <label for="{{score}}"  style="margin-left:10px;">{{score}}</label>
+        </div>
+    
+    </form>
 </div>

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RequestOptions, Headers } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { RegistrationComponent } from './registration.component';
@@ -16,6 +17,7 @@ import { StatsPopUpComponent } from './stats-popup.component';
 
 import { SpinResultService } from './spin-result.service';
 import { LoggerService } from './logger.service';
+import { CustomRequestOptions } from './custom-request-options';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,11 @@ import { LoggerService } from './logger.service';
     FormsModule,
     HttpModule
   ],
-  providers: [SpinResultService, LoggerService],
+  providers: [
+    SpinResultService,
+    LoggerService,
+    { provide: RequestOptions, useClass: CustomRequestOptions }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
