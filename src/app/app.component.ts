@@ -47,12 +47,16 @@ export class AppComponent implements OnInit {
   showInfoPopUp = false;
   // determine whether to show the popup for the SelfAppraisal player group
   showStatsPopUp = false;
+  // determine whether to show the popup for when the player chooses to end the session
+  showEndSessionPopUp = false;
   // counts the timer ticks
   tickCount: number;
   // number of minutes between timer ticks - from server
   timerIntervalMinutes: number;
   // timer interval in miliseconds
   timerInterval: number;
+  // need to pass this to server for all requests for this session
+  sessionId: string;
   playerId: string;
   isRegistered: boolean;
 
@@ -76,8 +80,7 @@ export class AppComponent implements OnInit {
       this.isRegistered = true;
        // we need to get the first grid of symbols to display
     // we will start with a random result map that shows maxCols*maxRows symbols
-    this.init();
-    this.loggerService.log(`init - default result map: ${this.resultMap}`);
+    this.init(playerId);
 
   }
 
@@ -96,10 +99,22 @@ export class AppComponent implements OnInit {
       }, this.timerInterval);
   }
 
+  allPopUpsClosed() {
+    return !this.showGrcs && !this.showInfoPopUp && !this.showStatsPopUp && !this.showEndSessionPopUp;
+  }
+
+  closeAllPopUps() {
+    this.showInfoPopUp = false;
+    this.showStatsPopUp = false;
+    this.showEndSessionPopUp = false;
+    this.showGrcs = false;
+  }
+
   // once the user closes the info popup they need to answer the grcs questions
   closeInfoPopUp() {
       this.showInfoPopUp = false;
       this.showStatsPopUp = false;
+      this.showEndSessionPopUp = false;
       this.showGrcs = true;
   }
 
@@ -113,10 +128,11 @@ export class AppComponent implements OnInit {
     this.showPopUpOnTimerTick();
   }
 
-  init() {
+  init(playerId: string) {
     this.isBusy = true;
-    this.spinResultService.initAsync()
+    this.spinResultService.initAsync(playerId)
       .then( result => {
+        this.sessionId = result.sessionId;
         this.resultMap = result.resultMap;
         this.balance = result.initialBalance;
         this.playerGroup = result.playerGroup;
@@ -130,7 +146,7 @@ export class AppComponent implements OnInit {
 
   getBetResult(betAmount: number, numRows: number) {
     this.isBusy = true;
-    this.spinResultService.getBetResultAsync(betAmount, numRows)
+    this.spinResultService.getBetResultAsync(betAmount, numRows, this.sessionId)
       .then( result => {
         this.resultMap = result.resultMap;
         this.balance =  parseFloat((this.balance + result.winAmount).toFixed(2));
@@ -151,6 +167,10 @@ export class AppComponent implements OnInit {
       playerId`);
     // get the new symbol map to redraw
     this.getBetResult(betRecord.betAmount, betRecord.numRows);
+  }
+
+  endSession() {
+    this.showEndSessionPopUp = true;
   }
 
   getNumBets() {

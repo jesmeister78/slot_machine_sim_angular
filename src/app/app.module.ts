@@ -14,6 +14,7 @@ import { GrcsQuestionComponent } from './grcs-question.component';
 import { InfoPopUpComponent } from './info-popup.component';
 import { InfoPopUpMsgComponent } from './info-popup-msg.component';
 import { StatsPopUpComponent } from './stats-popup.component';
+import { EndSessionPopUpComponent } from './end-session-popup.component';
 
 import { SpinResultService } from './spin-result.service';
 import { LoggerService } from './logger.service';
@@ -30,7 +31,8 @@ import { CustomRequestOptions } from './custom-request-options';
     GrcsQuestionComponent,
     InfoPopUpComponent,
     InfoPopUpMsgComponent,
-    StatsPopUpComponent
+    StatsPopUpComponent,
+    EndSessionPopUpComponent
   ],
   imports: [
     BrowserModule,

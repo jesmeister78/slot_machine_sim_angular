@@ -20,6 +20,7 @@ export class UserInterfaceComponent implements OnInit {
     @Input() balance: number;
 
     @Output() onSpin = new EventEmitter<BetRecord>();
+    @Output() onSessionEnd = new EventEmitter<boolean>();
 
     betAmount: number;
     defaults: DefaultParams;
@@ -40,10 +41,14 @@ export class UserInterfaceComponent implements OnInit {
         if (this.validateBetAmount(amt)) {
             this.loggerService.log('spin: bet amount: ' + amt);
             // emit an event so that the app component can redraw the symbol map
-            this.balance -= amt;
             const bet = this.createBetRecord();
             this.onSpin.emit(bet);
         }
+    }
+
+    endSession() {
+        this.loggerService.log('Gambling session ended');
+        this.onSessionEnd.emit(true);
     }
 
     createBetRecord() {

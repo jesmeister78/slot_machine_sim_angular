@@ -14,32 +14,33 @@ import { InitModel } from './init.model';
 @Injectable()
 export class SpinResultService {
 
-    private spinResultUrl = 'http://localhost:21452/api/values';
-    private betResultUrl = 'http://localhost:21452/api/values/';
+    private apiUrl = 'http://localhost:21452/api/values';
+
     /**
      *
      */
     constructor(private http: Http, private loggerService: LoggerService) {
     }
 
-    initAsync(): Promise<InitModel> {
+    initAsync(playerId: string): Promise<InitModel> {
         this.loggerService.log(`getSpinResultAsync() - getting resultMap from server`);
-        return this.http.get(this.spinResultUrl)
+        const initUrl = `${this.apiUrl}/${playerId}`;
+        return this.http.get(initUrl)
         .toPromise()
         .then(response => {
             const result = response.json() as InitModel;
-            this.loggerService.log(`getSpinResultAsync() - result map returned from server: ${result.resultMap}`);
+            this.loggerService.log(`initAsync() - result map returned from server: ${result.resultMap}`);
             return result;
         },
         error => {
-            this.loggerService.log(`getSpinResultAsync() - error returned from server: ${error}`);
+            this.loggerService.log(`initAsync() - error returned from server: ${error}`);
             return Promise.reject('Server returned an error please check the console');
         });
     }
 
-    getBetResultAsync(betAmount: number, numRows: number): Promise<BetResultModel> {
-        this.loggerService.log(`getSpinResultAsync() - getting bet result from server`);
-        const betResulturl = this.spinResultUrl + `/${betAmount}/${numRows}`;
+    getBetResultAsync(betAmount: number, numRows: number, sessionId: string): Promise<BetResultModel> {
+        this.loggerService.log(`getBetResultAsync() - getting bet result from server`);
+        const betResulturl = `${this.apiUrl}/${betAmount}/${numRows}/${sessionId}`;
         return this.http.get(betResulturl)
         .toPromise()
         .then(response => {

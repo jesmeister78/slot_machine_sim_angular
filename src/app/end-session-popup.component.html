@@ -1,0 +1,44 @@
+<div class="symbol-panel" style="color:white; margin-top:40px;">
+    <div *ngIf="showConfirm">
+        <div class="row">
+            <div class="col-sm-12">
+                <label class="bet-label">Are you sure you want to end your session?</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="grcs-submit" style="margin-top:10px;">
+                    <button (click)="confirmSessionEnd()">Yes</button>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="grcs-submit" style="margin-top:10px;">
+                    <button (click)="cancel()">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showEndSession">
+        <div class="panel panel-primary">
+            <div class="panel-heading"> 
+                Thank you for participating in this study. We are sincerely grateful. Your participation will assist in developing
+                some targeted strategies to reduce problematic slot machine use.
+            </div>
+            <div class="panel-body" style="max-height: 10;overflow-y: scroll;">
+                Want to boost your final credit value to increase your chance of winning one of the $50 vouchers? To do so, you
+                just need to recruit others who you think may be eligible for this study (those who are over 18 years old
+                and have played a slot machine/pokies in the last 12 months, either online or actual physical slot machines/pokies).
+                To invite participants, you can email them or post the study's advert below to your social media profiles
+                (e.g. to your Facebook profile). We will add $10 to the final credits you had remaining at the end of the
+                study for every participant you recruited; this will increase your chances of winning one of the two $50
+                vouchers. In order to ensure we know that the participant has been invited by you, the participant will be
+                asked to provide the email address that you provided us when completing the study. Note: when posting the
+                advert below, add a sentence asking potential participants to quote your email address when prompted to in
+                the study.
+            </div>
+        </div>
+        <div class="grcs-submit" style="margin-top:10px;">
+            <button (click)="submitEndSession()">Ok</button>
+        </div>
+    </div>
+</div>

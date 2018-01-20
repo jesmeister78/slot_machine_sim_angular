@@ -1,19 +1,13 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, EventEmitter } from '@angular/core';
 import { getInfoMessages } from './info-popup-data';
-import { EventEmitter } from '@angular/core';
+import { BasePopUp } from './base-popup';
 
 @Component({
     selector: 'app-stats-popup',
     templateUrl: './stats-popup.component.html'
 })
 
-export class StatsPopUpComponent {
+export class StatsPopUpComponent extends BasePopUp {
     @Input() timePlayed: number;
     @Input() numBets: number;
-
-    @Output() onPopUpClosed = new EventEmitter<boolean>();
-
-    closePopUp() {
-        this.onPopUpClosed.emit(true);
-    }
 }

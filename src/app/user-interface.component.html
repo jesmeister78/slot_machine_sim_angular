@@ -42,8 +42,8 @@
         </div>
     </div>
     <div class="col-sm-2">
-        <div *ngIf="isBusy">
-            <label class="bet-label">Testing your luck...</label>
+        <div *ngIf="!isBusy">
+            <button (click)="endSession()">End Session</button>
         </div>
     </div>
 </div>
