@@ -10,7 +10,7 @@
                 <app-end-session-popup (onSessionEndCancelled)="closeAllPopUps()" (onSessionEndSubmitted)="submitAndClose()"></app-end-session-popup>
             </div>
             <div *ngIf="showGrcs" class="symbol-panel">
-                <app-grcs [tickCount]="tickCount" (onAnswersSubmitted)="updateGrcsResponses($event)"></app-grcs>
+                <app-grcs [tickCount]="tickCount" [timerIntervalMinutes]="timerIntervalMinutes" [sessionId]="sessionId" (onAnswersSubmitted)="updateGrcsResponses($event)"></app-grcs>
             </div>
             <div *ngIf="showInfoPopUp" class="symbol-panel">
                 <app-info-popup [tickCount]="tickCount" (onPopUpClosed)="closeInfoPopUp()"></app-info-popup>

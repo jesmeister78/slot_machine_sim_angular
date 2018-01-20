@@ -120,7 +120,7 @@ export class AppComponent implements OnInit {
 
   updateGrcsResponses(responses: GrcsQuestionResponse[]) {
     // TODO: need to send the responses somewhere
-
+    this.spinResultService.saveGrcsResponses(responses);
     // hide the grcs panel so player can go back to spinning
     this.showGrcs = false;
 

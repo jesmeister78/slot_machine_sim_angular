@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 
 import { spinResult } from './test-result-map';
 import { getDefaults } from './test-result-map';
 import { getSymbolNames } from './test-result-map';
-import {RNG} from './rng';
+import { RNG } from './rng';
 import { LoggerService } from './logger.service';
 import { BetResultModel } from './bet-result.model';
 import { InitModel } from './init.model';
+import { SaveResponseModel } from './save-response.model';
+import { GrcsQuestionResponse } from './grcs-question-response';
 
 @Injectable()
 export class SpinResultService {
 
     private apiUrl = 'http://localhost:21452/api/values';
+
+    private headers = new Headers({ 'Content-Type': 'application/json' });
+    private options = new RequestOptions({ headers: this.headers });
 
     /**
      *
@@ -26,37 +31,51 @@ export class SpinResultService {
         this.loggerService.log(`getSpinResultAsync() - getting resultMap from server`);
         const initUrl = `${this.apiUrl}/${playerId}`;
         return this.http.get(initUrl)
-        .toPromise()
-        .then(response => {
-            const result = response.json() as InitModel;
-            this.loggerService.log(`initAsync() - result map returned from server: ${result.resultMap}`);
-            return result;
-        },
-        error => {
-            this.loggerService.log(`initAsync() - error returned from server: ${error}`);
-            return Promise.reject('Server returned an error please check the console');
-        });
+            .toPromise()
+            .then(response => {
+                const result = response.json() as InitModel;
+                this.loggerService.log(`initAsync() - result map returned from server: ${result.resultMap}`);
+                return result;
+            },
+            error => {
+                this.loggerService.log(`initAsync() - error returned from server: ${error}`);
+                return Promise.reject('Server returned an error please check the console');
+            });
     }
 
     getBetResultAsync(betAmount: number, numRows: number, sessionId: string): Promise<BetResultModel> {
         this.loggerService.log(`getBetResultAsync() - getting bet result from server`);
         const betResulturl = `${this.apiUrl}/${betAmount}/${numRows}/${sessionId}`;
         return this.http.get(betResulturl)
-        .toPromise()
-        .then(response => {
-            const resp = response.json();
-            const resultMap = resp.resultMap as number[][];
-            const winAmount = resp.winAmount as number;
-            const betResult = new BetResultModel();
-            betResult.resultMap = resultMap;
-            betResult.winAmount = winAmount;
-            this.loggerService.log(`getBetResultAsync() - result map returned from server: ${resultMap}`);
-            return betResult;
-        },
-        error => {
-            this.loggerService.log(`getBetResultAsync() - error returned from server: ${error}`);
-            return Promise.reject('Server returned an error please check the console');
-        });
+            .toPromise()
+            .then(response => {
+                const resp = response.json();
+                const resultMap = resp.resultMap as number[][];
+                const winAmount = resp.winAmount as number;
+                const betResult = new BetResultModel();
+                betResult.resultMap = resultMap;
+                betResult.winAmount = winAmount;
+                this.loggerService.log(`getBetResultAsync() - result map returned from server: ${resultMap}`);
+                return betResult;
+            },
+            error => {
+                this.loggerService.log(`getBetResultAsync() - error returned from server: ${error}`);
+                return Promise.reject('Server returned an error please check the console');
+            });
+    }
+
+    saveGrcsResponses(grcsResponses: GrcsQuestionResponse[]): Promise<SaveResponseModel> {
+        const saveGrcsResponsesUrl = `${this.apiUrl}/grcs`;
+        return this.http.post(saveGrcsResponsesUrl, grcsResponses, this.options).toPromise()
+            .then(response => {
+                const result = response.json() as SaveResponseModel;
+                this.loggerService.log(`saveGrcsResponses() - saved to server: ${result.status}`);
+                return result;
+            },
+            error => {
+                this.loggerService.log(`saveGrcsResponses() - error returned from server: ${error}`);
+                return Promise.reject('Server returned an error please check the console');
+            });
     }
 
     getSymbolNames() {
@@ -65,17 +84,17 @@ export class SpinResultService {
 
     getSpinResult() {
         const rng = new RNG(242434343);
-            const resultMap = spinResult();
-            for (let i = 0; i < resultMap.length; i++) {
-                for (let j = 0; j < resultMap[0].length; j++) {
-                    resultMap[i][j] = rng.nextInt(0, 8);
-                }
+        const resultMap = spinResult();
+        for (let i = 0; i < resultMap.length; i++) {
+            for (let j = 0; j < resultMap[0].length; j++) {
+                resultMap[i][j] = rng.nextInt(0, 8);
             }
-            return  resultMap;
+        }
+        return resultMap;
     }
 
     getDefaults() {
-            return getDefaults();
+        return getDefaults();
     }
 }
 

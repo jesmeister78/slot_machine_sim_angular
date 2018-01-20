@@ -11,7 +11,8 @@ import { EventEmitter } from '@angular/core';
 
 export class GrcsComponent {
     @Input() tickCount: number;
-
+    @Input() timerIntervalMinutes: number;
+    @Input() sessionId: string;
     @Output() onAnswersSubmitted = new EventEmitter<GrcsQuestionResponse[]>();
 
     private totalNumQuestions = 20;
@@ -21,14 +22,15 @@ export class GrcsComponent {
     grcsScores: number[] = [1, 2, 3, 4, 5, 6, 7];
 
     onResponse(response) {
-        const numMinutesPlayed = this.tickCount * 5;
+        const numMinutesPlayed = this.tickCount * this.timerIntervalMinutes;
         // check if we already have a response for this question this timer tick
         const resp = this.responses.find(r => r.questionId === response.questionId && r.numMinutesPlayed === numMinutesPlayed);
         if (resp) {
             // if we can find it just update the answer
             resp.answer = response.answer;
         } else {
-            // otherwise we update the numMinutesPlayed and add it to the collection
+            // otherwise we update the sessionId and numMinutesPlayed and add it to the collection
+            response.sessionId = this.sessionId;
             response.numMinutesPlayed = numMinutesPlayed;
             this.responses.push(response);
         }
