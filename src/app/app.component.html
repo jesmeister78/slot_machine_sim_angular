@@ -1,29 +1,42 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-<div class="container">
-    <div *ngIf="!isRegistered">
-        <app-registration (onPlayerRegistered)="startPlaying($event)"></app-registration>
-    </div>
-    <div class="display-area">
-        <div *ngIf="isRegistered">
-            <div *ngIf="showEndSessionPopUp" class="symbol-panel">
-                <app-end-session-popup (onSessionEndCancelled)="closeAllPopUps()" (onSessionEndSubmitted)="submitAndClose()"></app-end-session-popup>
-            </div>
-            <div *ngIf="showGrcs" class="symbol-panel">
-                <app-grcs [tickCount]="tickCount" [timerIntervalMinutes]="timerIntervalMinutes" [sessionId]="sessionId" (onAnswersSubmitted)="updateGrcsResponses($event)"></app-grcs>
-            </div>
-            <div *ngIf="showInfoPopUp" class="symbol-panel">
-                <app-info-popup [tickCount]="tickCount" (onPopUpClosed)="closeInfoPopUp()"></app-info-popup>
-            </div>
-            <div *ngIf="showStatsPopUp" class="symbol-panel">
-                <app-stats-popup [numBets]="getNumBets()" [timePlayed]="getTimePlayed()" (onPopUpClosed)="closeInfoPopUp()"></app-stats-popup>
-            </div>
-            <div *ngIf="allPopUpsClosed()" class="symbol-panel">
-                <div>
-                    <app-row *ngFor="let resultRow of resultMap;let rowIndex = index" [symbolNames]="getRowSymbolNames(rowIndex)"></app-row>
-                </div>
-                <app-user-interface [isBusy]="isBusy" [balance]="balance" (onSpin)="doSpin($event)" (onSessionEnd)="endSession($event)"></app-user-interface>
-            </div>
+<div class="container display-area">
+    <div class="row" style="height:30px;">
+        <div class="col-sm-12">
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-3">
+
+        </div>
+        <div class="col-sm-6">
+            <app-registration *ngIf="!isRegistered" (onPlayerRegistered)="startPlaying($event)"></app-registration>
+            <div *ngIf="isRegistered">
+                <div *ngIf="showEndSessionPopUp" class="symbol-panel">
+                    <app-end-session-popup (onSessionEndCancelled)="closeAllPopUps()" (onSessionEndSubmitted)="submitAndClose()"></app-end-session-popup>
+                </div>
+                <div *ngIf="showGrcs" class="symbol-panel">
+                    <app-grcs [tickCount]="tickCount" [timerIntervalMinutes]="timerIntervalMinutes" [sessionId]="sessionId" 
+                        (onAnswersSubmitted)="updateGrcsResponses($event)"></app-grcs>
+                </div>
+                <div *ngIf="showInfoPopUp" class="symbol-panel">
+                    <app-info-popup [tickCount]="tickCount" (onPopUpClosed)="closeInfoPopUp()"></app-info-popup>
+                </div>
+                <div *ngIf="showStatsPopUp" class="symbol-panel">
+                    <app-stats-popup [numBets]="getNumBets()" [timePlayed]="getTimePlayed()" (onPopUpClosed)="closeInfoPopUp()"></app-stats-popup>
+                </div>
+                <div *ngIf="allPopUpsClosed()" class="symbol-panel">
+                    <div>
+                        <app-row *ngFor="let resultRow of resultMap;let rowIndex = index" [symbolNames]="getRowSymbolNames(rowIndex)"></app-row>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <app-user-interface  *ngIf="isRegistered" [isBusy]="isBusy" [balance]="balance" (onSpin)="doSpin($event)" 
+                (onSessionEnd)="endSession($event)"></app-user-interface>
+
+        </div>
+    </div>
+
 </div>

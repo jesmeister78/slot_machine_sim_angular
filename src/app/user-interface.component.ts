@@ -37,11 +37,15 @@ export class UserInterfaceComponent implements OnInit {
     constructor(private spinResultService: SpinResultService, private loggerService: LoggerService) {
     }
 
+    getTotalBetCost(): number {
+        return this.betAmount || 0 * this.numRows || 0;
+    }
+
     spin(amt) {
         if (this.validateBetAmount(amt)) {
             this.loggerService.log('spin: bet amount: ' + amt);
-            // emit an event so that the app component can redraw the symbol map
             const bet = this.createBetRecord();
+            // emit an event so that the app component can redraw the symbol map
             this.onSpin.emit(bet);
         }
     }

@@ -1,5 +1,10 @@
-<div>
-    <label class="registration-label">Please enter your email address to begin playing</label>
-    <input type="email" class="registration-textbox" [(ngModel)]="playerId" [email]="true" />
-    <button (click)="registerPlayer(playerId)">Start Playing!</button>
-</div>
+<form>
+    <div class="form-group">
+        <label for="emlPlayerId">Please enter your email address to begin playing</label>
+        <input type="email" [(ngModel)]="playerId" class="form-control" id="emlPlayerId" aria-describedby="playerIdHelp" placeholder="Enter email">
+        <small id="playerIdHelp" class="form-text text-muted">You need to register by entering your email address</small>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" (click)="registerPlayer(playerId)">Begin!</button>
+    </div>
+</form>

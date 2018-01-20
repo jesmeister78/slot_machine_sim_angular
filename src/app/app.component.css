@@ -4,6 +4,7 @@
 }
 
 .display-area{
+    color:white;
     height:600px;
     border: 1px solid green;
     background-image: url('/assets/sm-bg.jpg');
@@ -13,7 +14,6 @@
 
 .symbol-panel{
     width:500px;
-    margin-top:35px;
     margin-left: auto;
     margin-right: auto;
 }
