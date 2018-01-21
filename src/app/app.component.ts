@@ -4,7 +4,8 @@ import { Input } from '@angular/core';
 import { SpinResultService } from './spin-result.service';
 import { LoggerService } from './logger.service';
 import { BetRecord } from './bet-record';
-import { GrcsQuestionResponse } from './grcs-question-response';
+import { AnalogScaleResponse } from './analog-scale-response';
+import { AnalogScaleResponseCollection, AnalogScaleResponseType } from './analog-scale-response-collection';
 
 /*
  * This is the screen of the slot machine that displays a grid of symbols
@@ -42,6 +43,8 @@ export class AppComponent implements OnInit {
   isBusy = false;
   // determine whether to hide the symbol display and user interface to show the grcs questionaire
   showGrcs = false;
+  // determine whether to hide the symbol display and user interface to show the bipolar questionaire
+  showBiPolar = false;
 
   // determine whether to show the popup for the Information player group
   showInfoPopUp = false;
@@ -60,7 +63,7 @@ export class AppComponent implements OnInit {
   playerId: string;
   isRegistered: boolean;
 
-  constructor(private spinResultService: SpinResultService, private loggerService: LoggerService) {  }
+  constructor(private spinResultService: SpinResultService, private loggerService: LoggerService) { }
 
   ngOnInit(): void {
     // initialise the collection of bet results
@@ -76,53 +79,67 @@ export class AppComponent implements OnInit {
 
 
   startPlaying(playerId: string) {
-      this.playerId = playerId;
-      this.isRegistered = true;
-       // we need to get the first grid of symbols to display
+    this.playerId = playerId;
+    this.isRegistered = true;
+    // we need to get the first grid of symbols to display
     // we will start with a random result map that shows maxCols*maxRows symbols
     this.init(playerId);
 
   }
 
   showPopUpOnTimerTick() {
-      setTimeout(() => {
-          this.tickCount ++;
-          if (this.isInControlGroup()) {
-            this.showGrcs = true;
-          }
-          if (this.isInInformationGroup()) {
-            this.showInfoPopUp = true;
-          }
-          if (this.isInSelfAppraisalGroup()) {
-            this.showStatsPopUp = true;
-          }
-      }, this.timerInterval);
+    setTimeout(() => {
+      this.tickCount++;
+      if (this.isInControlGroup()) {
+        this.showBiPolar = true;
+      }
+      if (this.isInInformationGroup()) {
+        this.showInfoPopUp = true;
+      }
+      if (this.isInSelfAppraisalGroup()) {
+        this.showStatsPopUp = true;
+      }
+    }, this.timerInterval);
   }
 
   allPopUpsClosed() {
-    return !this.showGrcs && !this.showInfoPopUp && !this.showStatsPopUp && !this.showEndSessionPopUp;
+    return !this.showGrcs && !this.showBiPolar && !this.showInfoPopUp && !this.showStatsPopUp && !this.showEndSessionPopUp;
   }
 
   closeAllPopUps() {
     this.showInfoPopUp = false;
     this.showStatsPopUp = false;
     this.showEndSessionPopUp = false;
+    this.showBiPolar = false;
     this.showGrcs = false;
   }
 
-  // once the user closes the info popup they need to answer the grcs questions
+  closeBiPolarPopUp() {
+    this.showInfoPopUp = false;
+    this.showStatsPopUp = false;
+    this.showEndSessionPopUp = false;
+    this.showBiPolar = false;
+    this.showGrcs = true;
+  }
+
+  // once the user closes the info popup they need to answer the bipolar questions
   closeInfoPopUp() {
-      this.showInfoPopUp = false;
-      this.showStatsPopUp = false;
-      this.showEndSessionPopUp = false;
-      this.showGrcs = true;
+    this.showInfoPopUp = false;
+    this.showStatsPopUp = false;
+    this.showEndSessionPopUp = false;
+    this.showGrcs = false;
+    this.showBiPolar = true;
   }
 
-  updateGrcsResponses(responses: GrcsQuestionResponse[]) {
+  updateAnalogScaleResponses(responseCollection: AnalogScaleResponseCollection) {
     // TODO: need to send the responses somewhere
-    this.spinResultService.saveGrcsResponses(responses);
-    // hide the grcs panel so player can go back to spinning
-    this.showGrcs = false;
+    this.spinResultService.saveAnalogScaleResponses(responseCollection.responses);
+    // hide the appropriate popup panel
+    if (responseCollection.responseType === AnalogScaleResponseType.BiPolar) {
+      this.closeBiPolarPopUp();
+    } else if (responseCollection.responseType === AnalogScaleResponseType.Grcs) {
+        this.closeAllPopUps();
+    }
 
     // start the timer again so the next set of grcs questions can be displayed
     this.showPopUpOnTimerTick();
@@ -131,13 +148,13 @@ export class AppComponent implements OnInit {
   init(playerId: string) {
     this.isBusy = true;
     this.spinResultService.initAsync(playerId)
-      .then( result => {
+      .then(result => {
         this.sessionId = result.sessionId;
         this.resultMap = result.resultMap;
         this.balance = result.initialBalance;
         this.playerGroup = result.playerGroup;
-        this.timerIntervalMinutes = result.timerInterval;
-        this.timerInterval = 1000 * 60 * this.timerIntervalMinutes;
+        this.timerIntervalMinutes =  result.timerInterval;
+        this.timerInterval = 10000; // 1000 * 60 * this.timerIntervalMinutes;
 
         this.isBusy = false;
         this.showPopUpOnTimerTick();
@@ -147,9 +164,9 @@ export class AppComponent implements OnInit {
   getBetResult(betAmount: number, numRows: number) {
     this.isBusy = true;
     this.spinResultService.getBetResultAsync(betAmount, numRows, this.sessionId)
-      .then( result => {
+      .then(result => {
         this.resultMap = result.resultMap;
-        this.balance =  parseFloat((this.balance + result.winAmount).toFixed(2));
+        this.balance = parseFloat((this.balance + result.winAmount).toFixed(2));
 
         this.isBusy = false;
       });

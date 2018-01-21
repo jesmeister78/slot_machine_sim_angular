@@ -1,0 +1,16 @@
+<div class="symbol-panel" style="color:white;">
+    <div class="row">
+        <div class="col-sm-12">
+            Please rate how you feel right now on each of the following.
+        </div>
+    </div>
+    <div>
+        <app-bi-polar-question *ngFor="let question of getQuestionsToDisplay(); let qIndex = index;" 
+        [questionText]="getBiPolarStatement(question)" 
+            [questionId]="qIndex+1" [negativePole]="question.negative" [positivePole]="question.positive"
+            [scoreRange]="scoreRange" (onResponse)="onResponse($event)"></app-bi-polar-question>
+    </div>
+    <div class="grcs-submit" style="margin-top:10px;">
+        <button class="btn btn-secondary"  (click)="submitBiPolarAnswers()">Submit Answers</button>
+    </div>
+</div>

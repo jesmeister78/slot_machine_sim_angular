@@ -11,7 +11,7 @@ import { LoggerService } from './logger.service';
 import { BetResultModel } from './bet-result.model';
 import { InitModel } from './init.model';
 import { SaveResponseModel } from './save-response.model';
-import { GrcsQuestionResponse } from './grcs-question-response';
+import { AnalogScaleResponse } from './analog-scale-response';
 
 @Injectable()
 export class SpinResultService {
@@ -64,16 +64,16 @@ export class SpinResultService {
             });
     }
 
-    saveGrcsResponses(grcsResponses: GrcsQuestionResponse[]): Promise<SaveResponseModel> {
-        const saveGrcsResponsesUrl = `${this.apiUrl}/grcs`;
-        return this.http.post(saveGrcsResponsesUrl, grcsResponses, this.options).toPromise()
+    saveAnalogScaleResponses(responses: AnalogScaleResponse[]): Promise<SaveResponseModel> {
+        const saveAnalogScaleResponsesUrl = `${this.apiUrl}/grcs`;
+        return this.http.post(saveAnalogScaleResponsesUrl, responses, this.options).toPromise()
             .then(response => {
                 const result = response.json() as SaveResponseModel;
-                this.loggerService.log(`saveGrcsResponses() - saved to server: ${result.status}`);
+                this.loggerService.log(`saveAnalogScaleResponses() - saved to server: ${result.status}`);
                 return result;
             },
             error => {
-                this.loggerService.log(`saveGrcsResponses() - error returned from server: ${error}`);
+                this.loggerService.log(`saveAnalogScaleResponses() - error returned from server: ${error}`);
                 return Promise.reject('Server returned an error please check the console');
             });
     }

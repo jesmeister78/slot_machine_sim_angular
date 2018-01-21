@@ -1,43 +1,24 @@
 import { Component, Input, Output } from '@angular/core';
-import { getGRCSQuestions } from './grcs-data';
+import { getGRCSQuestions } from './popup-questions-data';
 import { RNG } from './rng';
-import { GrcsQuestionResponse } from './grcs-question-response';
+import { AnalogScaleComponent } from './analog-scale.component';
 import { EventEmitter } from '@angular/core';
+import { AnalogScaleResponseCollection, AnalogScaleResponseType } from './analog-scale-response-collection';
 
 @Component({
     selector: 'app-grcs',
     templateUrl: './grcs.component.html'
 })
 
-export class GrcsComponent {
-    @Input() tickCount: number;
-    @Input() timerIntervalMinutes: number;
-    @Input() sessionId: string;
-    @Output() onAnswersSubmitted = new EventEmitter<GrcsQuestionResponse[]>();
+export class GrcsComponent extends AnalogScaleComponent {
 
-    private totalNumQuestions = 20;
+    protected totalNumQuestions = 20;
 
-    responses: GrcsQuestionResponse[] = [];
-
-    grcsScores: number[] = [1, 2, 3, 4, 5, 6, 7];
-
-    onResponse(response) {
-        const numMinutesPlayed = this.tickCount * this.timerIntervalMinutes;
-        // check if we already have a response for this question this timer tick
-        const resp = this.responses.find(r => r.questionId === response.questionId && r.numMinutesPlayed === numMinutesPlayed);
-        if (resp) {
-            // if we can find it just update the answer
-            resp.answer = response.answer;
-        } else {
-            // otherwise we update the sessionId and numMinutesPlayed and add it to the collection
-            response.sessionId = this.sessionId;
-            response.numMinutesPlayed = numMinutesPlayed;
-            this.responses.push(response);
-        }
-    }
+    scoreRange: number[] = [1, 2, 3, 4, 5, 6, 7];
 
     submitGrcsAnswers() {
-        this.onAnswersSubmitted.emit(this.responses);
+        const responseType = AnalogScaleResponseType.Grcs;
+        this.submitAnalogScaleAnswers(responseType);
     }
 
     getQuestionsToDisplay() {

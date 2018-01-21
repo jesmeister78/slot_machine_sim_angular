@@ -18,8 +18,8 @@
     margin-right: auto;
 }
 
-.grcs-form{
-    background-color: white;
+.form-inline > * {
+    margin:15px 3px !important;
 }
 
 .symbol{
