@@ -4,44 +4,45 @@ import { RNG } from './rng';
 import { EventEmitter } from '@angular/core';
 import { AnalogScaleResponseCollection, AnalogScaleResponseType } from './analog-scale-response-collection';
 import { AnalogScaleResponse } from './analog-scale-response';
+import { OnInit } from '@angular/core';
+import { AnalogScaleQuestion } from './analog-scale-question';
 
 @Component({
     selector: 'app-analog-scale',
     template: ''
 })
 
-export class AnalogScaleComponent {
+export class AnalogScaleComponent implements OnInit {
     @Input() tickCount: number;
     @Input() timerIntervalMinutes: number;
     @Input() sessionId: string;
     @Output() onAnswersSubmitted = new EventEmitter<AnalogScaleResponseCollection>();
 
     protected totalNumQuestions = 20;
-
-    responses: AnalogScaleResponse[] = [];
+    questions: AnalogScaleQuestion[];
+    responses: AnalogScaleResponse[];
+    responseType: AnalogScaleResponseType;
 
     scoreRange: number[];
 
-    onResponse(response) {
-        const numMinutesPlayed = this.tickCount * this.timerIntervalMinutes;
-        // check if we already have a response for this question this timer tick
-        const resp = this.responses.find(r => r.questionId === response.questionId && r.numMinutesPlayed === numMinutesPlayed);
-        if (resp) {
-            // if we can find it just update the answer
-            resp.answer = response.answer;
-        } else {
-            // otherwise we update the sessionId and numMinutesPlayed and add it to the collection
-            response.sessionId = this.sessionId;
-            response.numMinutesPlayed = numMinutesPlayed;
-            this.responses.push(response);
-        }
+    ngOnInit(): void {
+        this.questions = [];
+        this.responses = [];
     }
 
 
-    submitAnalogScaleAnswers(responseType: AnalogScaleResponseType) {
+    submitAnalogScaleAnswers() {
         const responseCollection = new AnalogScaleResponseCollection();
-        responseCollection.responses = this.responses;
-        responseCollection.responseType = responseType;
+        const numMinutesPlayed = this.timerIntervalMinutes * this.tickCount;
+        responseCollection.responseType = this.responseType;
+
+        this.questions.forEach(q => {
+            const response = new AnalogScaleResponse();
+            response.answer = q.answer;
+            response.numMinutesPlayed = numMinutesPlayed;
+            response.sessionId = this.sessionId;
+        });
+
         this.onAnswersSubmitted.emit(responseCollection);
     }
 

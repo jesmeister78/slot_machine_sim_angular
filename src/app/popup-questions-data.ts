@@ -1,5 +1,8 @@
-export function getGRCSQuestions(questionNumbers: number[]) {
-    const questions = [
+import { AnalogScaleQuestion } from './analog-scale-question';
+import { BiPolarQuestion } from './bi-polar-question';
+
+export function getGRCSQuestions(applicableIndices: number[]): AnalogScaleQuestion[] {
+    const statements = [
         'Gambling makes me happier.', // 0
         'I cannot function without gambling.', // 1
         'Praying helps me win.', // 2
@@ -22,18 +25,32 @@ export function getGRCSQuestions(questionNumbers: number[]) {
         'Remembering how much money I won last time makes me continue gambling.', // 19
         'I will never be able to stop gambling.', // 20
         'I have some control over predicting my gambling wins.', // 21
-        'If I keep changing my numbers, I have less chances of winning than if I keep the same numbers every time', // 22
+        'If I keep changing my numbers, I have less chances of winning than if I keep the same numbers every time' // 22
+    ];
+
+    const mandatoryStatements = [
         // mandatory question comes up every time
         'I have a strong urge to continue gambling right now' // 23
     ];
-    const MANDATORY_QUESTION_INDEX = 23;
-    const applicableQuestions = [];
-    applicableQuestions.push(questions[MANDATORY_QUESTION_INDEX]);
-    questionNumbers.forEach(q => applicableQuestions.push(questions[q]));
-    return applicableQuestions;
+
+    const questions = [];
+    mandatoryStatements.forEach((q, idx) => {
+        const question = new AnalogScaleQuestion();
+        // mandatory question indices start at 100
+        question.questionId = idx + 100;
+        question.questionText = mandatoryStatements[q];
+        questions.push(question);
+    });
+    applicableIndices.forEach((q, idx) => {
+        const question = new AnalogScaleQuestion();
+        question.questionId = idx;
+        question.questionText = statements[q];
+        questions.push(question);
+    });
+    return questions;
 }
 
-export function getBiPolarQuestions() {
+export function getBiPolarQuestions(): BiPolarQuestion[] {
     const poleArrays = [
         ['Unpleasant', 'Pleasant'],
         ['Melancholic', 'Contented'],
@@ -42,8 +59,11 @@ export function getBiPolarQuestions() {
     ];
 
     const poles = [];
-    poleArrays.forEach(p => {
-        poles.push({'negative': p[0], 'positive': p[1]});
+    poleArrays.forEach((q, idx) => {
+        const question = new BiPolarQuestion();
+        question.questionId = idx;
+        question.questionText = `${q[0]} vs ${q[1]}`;
+        poles.push(question);
     });
     return poles;
 }

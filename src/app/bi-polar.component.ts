@@ -6,14 +6,21 @@ import { EventEmitter } from '@angular/core';
 import { GrcsComponent } from './grcs.component';
 import { AnalogScaleComponent } from './analog-scale.component';
 import { AnalogScaleResponseType } from './analog-scale-response-collection';
+import { OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-bi-polar',
     templateUrl: './bi-polar.component.html'
 })
 
-export class BiPolarComponent extends AnalogScaleComponent {
+export class BiPolarComponent extends AnalogScaleComponent implements OnInit {
     scoreRange: number[] = [-3, -2, -1, 0, 1, 2, 3];
+
+    ngOnInit() {
+        this.responseType = AnalogScaleResponseType.BiPolar;
+        this.scoreRange =  [-3, -2, -1, 0, 1, 2, 3];
+        super.ngOnInit();
+    }
 
     getQuestionsToDisplay() {
         return getBiPolarQuestions();
@@ -22,11 +29,4 @@ export class BiPolarComponent extends AnalogScaleComponent {
     getBiPolarStatement(question) {
         return `${question.negative} vs ${question.positive}`;
     }
-
-
-    submitBiPolarAnswers() {
-        const responseType = AnalogScaleResponseType.BiPolar;
-        this.submitAnalogScaleAnswers(responseType);
-    }
-
 }

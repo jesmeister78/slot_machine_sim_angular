@@ -4,21 +4,23 @@ import { RNG } from './rng';
 import { AnalogScaleComponent } from './analog-scale.component';
 import { EventEmitter } from '@angular/core';
 import { AnalogScaleResponseCollection, AnalogScaleResponseType } from './analog-scale-response-collection';
+import { OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-grcs',
     templateUrl: './grcs.component.html'
 })
 
-export class GrcsComponent extends AnalogScaleComponent {
+export class GrcsComponent extends AnalogScaleComponent implements OnInit {
 
     protected totalNumQuestions = 20;
 
     scoreRange: number[] = [1, 2, 3, 4, 5, 6, 7];
 
-    submitGrcsAnswers() {
-        const responseType = AnalogScaleResponseType.Grcs;
-        this.submitAnalogScaleAnswers(responseType);
+    ngOnInit() {
+        super.ngOnInit();
+        this.responseType = AnalogScaleResponseType.Grcs;
+        this.scoreRange  = [1, 2, 3, 4, 5, 6, 7];
     }
 
     getQuestionsToDisplay() {
@@ -45,11 +47,11 @@ export class GrcsComponent extends AnalogScaleComponent {
     private getRandomQuestions(numQuestions: number) {
         const numQs = numQuestions || 3;
         const rng = new RNG(94764);
-        const questions = [];
+        const indices = [];
         for (let i = 0; i < numQuestions; i++) {
-            questions.push(rng.nextInt(0, this.totalNumQuestions - 1));
+            indices.push(rng.nextInt(0, this.totalNumQuestions - 1));
         }
-        return questions;
+        return getGRCSQuestions(indices);
     }
 
 }
