@@ -4,7 +4,7 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
     selector: 'app-end-session-popup',
-    templateUrl: './end-session-popup.component.html'
+    templateUrl: './templates/end-session-popup.component.html'
 })
 
 export class EndSessionPopUpComponent implements OnInit {

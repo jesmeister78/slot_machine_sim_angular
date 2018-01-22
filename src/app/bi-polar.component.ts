@@ -10,7 +10,7 @@ import { OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-bi-polar',
-    templateUrl: './bi-polar.component.html'
+    templateUrl: './templates/bi-polar.component.html'
 })
 
 export class BiPolarComponent extends AnalogScaleComponent implements OnInit {

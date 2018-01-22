@@ -10,7 +10,7 @@ import { BetRecord } from './bet-record';
 
 @Component({
     selector: 'app-user-interface',
-    templateUrl: 'user-interface.component.html',
+    templateUrl: './templates/user-interface.component.html',
     styleUrls: ['./user-interface.component.css']
 })
 

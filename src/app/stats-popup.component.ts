@@ -4,7 +4,7 @@ import { BasePopUp } from './base-popup';
 
 @Component({
     selector: 'app-stats-popup',
-    templateUrl: './stats-popup.component.html'
+    templateUrl: './templates/stats-popup.component.html'
 })
 
 export class StatsPopUpComponent extends BasePopUp {

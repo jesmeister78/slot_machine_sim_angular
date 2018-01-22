@@ -13,7 +13,7 @@ import { AnalogScaleResponseCollection, AnalogScaleResponseType } from './analog
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  templateUrl: './templates/app.component.html',
   styleUrls: ['./app.component.css']
 })
 

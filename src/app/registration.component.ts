@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-registration',
-    templateUrl: './registration.component.html'
+    templateUrl: './templates/registration.component.html'
 })
 
 export class RegistrationComponent {

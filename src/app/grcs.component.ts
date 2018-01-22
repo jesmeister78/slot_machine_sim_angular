@@ -8,7 +8,7 @@ import { OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-grcs',
-    templateUrl: './grcs.component.html'
+    templateUrl: './templates/grcs.component.html'
 })
 
 export class GrcsComponent extends AnalogScaleComponent implements OnInit {

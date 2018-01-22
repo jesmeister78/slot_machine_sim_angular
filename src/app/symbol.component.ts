@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
     selector: 'app-symbol',
-    templateUrl: './symbol.component.html'
+    templateUrl: './templates/symbol.component.html'
 })
 
 export class SymbolComponent  implements OnInit {
