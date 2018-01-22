@@ -13,7 +13,8 @@
                 <div class="col-sm-8">
                     <div class="form-group" id="rbgBiPolar">
                         <label class="radio-inline" *ngFor="let score of scoreRange">
-                            <input type="radio" name="question.questionId" [(ngModel)]="question.answer" [checked]="score === question.answer" style="margin-left: 15px;"
+                            <input type="radio" name="{{question.questionId}}" [(ngModel)]="question.answer" 
+                            [value]="score" [checked]="score === question.answer" style="margin-left: 15px;"
                             /> {{score}}
                         </label>
                     </div>
