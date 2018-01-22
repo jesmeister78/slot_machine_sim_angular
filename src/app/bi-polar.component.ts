@@ -17,9 +17,10 @@ export class BiPolarComponent extends AnalogScaleComponent implements OnInit {
     scoreRange: number[] = [-3, -2, -1, 0, 1, 2, 3];
 
     ngOnInit() {
+        super.ngOnInit();
         this.responseType = AnalogScaleResponseType.BiPolar;
         this.scoreRange =  [-3, -2, -1, 0, 1, 2, 3];
-        super.ngOnInit();
+        this.questions = this.getQuestionsToDisplay();
     }
 
     getQuestionsToDisplay() {

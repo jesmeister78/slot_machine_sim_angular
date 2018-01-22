@@ -61,6 +61,8 @@ export function getBiPolarQuestions(): BiPolarQuestion[] {
     const poles = [];
     poleArrays.forEach((q, idx) => {
         const question = new BiPolarQuestion();
+        question.negativePole = q[0];
+        question.positivePole = q[1];
         question.questionId = idx;
         question.questionText = `${q[0]} vs ${q[1]}`;
         poles.push(question);
