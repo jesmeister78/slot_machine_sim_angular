@@ -1,6 +1,6 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { BasePopUp } from './base-popup';
-import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-end-session-popup',
