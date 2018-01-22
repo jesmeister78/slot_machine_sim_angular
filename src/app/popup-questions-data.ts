@@ -38,7 +38,7 @@ export function getGRCSQuestions(applicableIndices: number[]): AnalogScaleQuesti
         const question = new AnalogScaleQuestion();
         // mandatory question indices start at 100
         question.questionId = idx + 100;
-        question.questionText = mandatoryStatements[q];
+        question.questionText = q;
         questions.push(question);
     });
     applicableIndices.forEach((q, idx) => {

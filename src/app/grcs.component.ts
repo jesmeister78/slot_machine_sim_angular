@@ -21,6 +21,7 @@ export class GrcsComponent extends AnalogScaleComponent implements OnInit {
         super.ngOnInit();
         this.responseType = AnalogScaleResponseType.Grcs;
         this.scoreRange  = [1, 2, 3, 4, 5, 6, 7];
+        this.questions = this.getQuestionsToDisplay();
     }
 
     getQuestionsToDisplay() {

@@ -139,10 +139,10 @@ export class AppComponent implements OnInit {
       this.closeBiPolarPopUp();
     } else if (responseCollection.responseType === AnalogScaleResponseType.Grcs) {
         this.closeAllPopUps();
+        // once they have submitted grcs responses
+        // start the timer again so the next set of  questions can be displayed
+        this.showPopUpOnTimerTick();
     }
-
-    // start the timer again so the next set of grcs questions can be displayed
-    this.showPopUpOnTimerTick();
   }
 
   init(playerId: string) {

@@ -20,14 +20,12 @@ export class AnalogScaleComponent implements OnInit {
 
     protected totalNumQuestions = 20;
     questions: AnalogScaleQuestion[];
-    responses: AnalogScaleResponse[];
     responseType: AnalogScaleResponseType;
 
     scoreRange: number[];
 
     ngOnInit(): void {
         this.questions = [];
-        this.responses = [];
     }
 
 
@@ -42,9 +40,9 @@ export class AnalogScaleComponent implements OnInit {
             response.numMinutesPlayed = numMinutesPlayed;
             response.sessionId = this.sessionId;
         });
-
+        // clear the questions collection
+        this.questions = [];
+        // let the app know we're ready to send the responses to the server
         this.onAnswersSubmitted.emit(responseCollection);
     }
-
-
 }

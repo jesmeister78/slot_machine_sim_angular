@@ -17,11 +17,11 @@
                 </div>
                 <div *ngIf="showGrcs" class="symbol-panel">
                     <app-grcs [tickCount]="tickCount" [timerIntervalMinutes]="timerIntervalMinutes" [sessionId]="sessionId" 
-                        (onAnswersSubmitted)="updateGrcsResponses($event)"></app-grcs>
+                        (onAnswersSubmitted)="updateAnalogScaleResponses($event)"></app-grcs>
                 </div>
                 <div *ngIf="showBiPolar" class="symbol-panel">
                     <app-bi-polar [tickCount]="tickCount" [timerIntervalMinutes]="timerIntervalMinutes" [sessionId]="sessionId" 
-                        (onAnswersSubmitted)="updateGrcsResponses($event)"></app-bi-polar>
+                        (onAnswersSubmitted)="updateAnalogScaleResponses($event)"></app-bi-polar>
                 </div>
                 <div *ngIf="showInfoPopUp" class="symbol-panel">
                     <app-info-popup [tickCount]="tickCount" (onPopUpClosed)="closeInfoPopUp()"></app-info-popup>
