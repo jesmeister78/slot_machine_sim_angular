@@ -16,7 +16,8 @@ import { AnalogScaleResponse } from './analog-scale-response';
 @Injectable()
 export class SpinResultService {
 
-    private apiUrl = 'http://localhost:21452/api/values';
+    // private apiUrl = 'http://localhost:21452/api/values';
+    private apiUrl = 'https://slotmachineapidotnetcore2.azurewebsites.net/api';
 
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private options = new RequestOptions({ headers: this.headers });
@@ -29,7 +30,7 @@ export class SpinResultService {
 
     initAsync(playerId: string): Promise<InitModel> {
         this.loggerService.log(`getSpinResultAsync() - getting resultMap from server`);
-        const initUrl = `${this.apiUrl}/${playerId}`;
+        const initUrl = `${this.apiUrl}/values/${playerId}`;
         return this.http.get(initUrl)
             .toPromise()
             .then(response => {
@@ -45,7 +46,7 @@ export class SpinResultService {
 
     getBetResultAsync(betAmount: number, numRows: number, sessionId: string): Promise<BetResultModel> {
         this.loggerService.log(`getBetResultAsync() - getting bet result from server`);
-        const betResulturl = `${this.apiUrl}/${betAmount}/${numRows}/${sessionId}`;
+        const betResulturl = `${this.apiUrl}/values/${betAmount}/${numRows}/${sessionId}`;
         return this.http.get(betResulturl)
             .toPromise()
             .then(response => {
@@ -65,7 +66,7 @@ export class SpinResultService {
     }
 
     saveAnalogScaleResponses(responses: AnalogScaleResponse[]): Promise<SaveResponseModel> {
-        const saveAnalogScaleResponsesUrl = `${this.apiUrl}/grcs`;
+        const saveAnalogScaleResponsesUrl = `${this.apiUrl}/values/grcs`;
         return this.http.post(saveAnalogScaleResponsesUrl, responses, this.options).toPromise()
             .then(response => {
                 const result = response.json() as SaveResponseModel;
