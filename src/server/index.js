@@ -7,10 +7,10 @@ var port = process.env.PORT || 4200;
 
 // app.use(favicon(__dirname + '/favicon.ico'));
 
-app.get('/ping', function (req, res, next) {
+/* app.get('/ping', function (req, res, next) {
   console.log(req.body);
   res.send('pong');
-});
+}); */
 
 
 var staticRoot = __dirname + '/';
