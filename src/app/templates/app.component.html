@@ -37,7 +37,8 @@
             </div>
         </div>
         <div class="col-sm-3">
-            <app-user-interface  *ngIf="isRegistered" [isBusy]="isBusy" [balance]="balance" (onSpin)="doSpin($event)" 
+            <app-user-interface  *ngIf="isRegistered" [betAmount]="defaultBetAmount" [numRows]="defaultNumRows" 
+                [isBusy]="isBusy" [balance]="balance" (onSpin)="doSpin($event)" 
                 (onSessionEnd)="endSession($event)"></app-user-interface>
 
         </div>

@@ -30,6 +30,10 @@ export class AppComponent implements OnInit {
     'SelfAppraisal': 3
   };
 
+  // ui defaults
+  defaultBetAmount: number;
+  defaultNumRows: number;
+
   balance: number;
 
   numRows: number;
@@ -155,7 +159,8 @@ export class AppComponent implements OnInit {
         this.playerGroup = result.playerGroup;
         this.timerIntervalMinutes =  result.timerInterval;
         this.timerInterval = 1000 * 60 * this.timerIntervalMinutes;
-
+        this.defaultBetAmount = result.defaultBetAmount;
+        this.defaultNumRows = result.defaultNumRows;
         this.isBusy = false;
         this.showPopUpOnTimerTick();
       });

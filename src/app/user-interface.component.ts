@@ -18,13 +18,13 @@ export class UserInterfaceComponent implements OnInit {
 
     @Input('isBusy') isBusy: boolean;
     @Input() balance: number;
+    @Input() betAmount: number;
+    @Input() numRows: number;
 
     @Output() onSpin = new EventEmitter<BetRecord>();
     @Output() onSessionEnd = new EventEmitter<boolean>();
 
-    betAmount: number;
     defaults: DefaultParams;
-    numRows: number;
     playerId: string;
 
     ngOnInit(): void {
@@ -38,7 +38,7 @@ export class UserInterfaceComponent implements OnInit {
     }
 
     getTotalBetCost(): number {
-        return this.betAmount || 0 * this.numRows || 0;
+        return this.betAmount * this.numRows || 0;
     }
 
     spin(amt) {
