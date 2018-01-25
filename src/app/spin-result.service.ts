@@ -12,12 +12,12 @@ import { BetResultModel } from './bet-result.model';
 import { InitModel } from './init.model';
 import { SaveResponseModel } from './save-response.model';
 import { AnalogScaleResponse } from './analog-scale-response';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class SpinResultService {
 
-    // private apiUrl = 'http://localhost:21452/api/values';
-    private apiUrl = 'https://slotmachineapidotnetcore2.azurewebsites.net/api';
+    private apiUrl = environment.apiUrl;
 
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private options = new RequestOptions({ headers: this.headers });

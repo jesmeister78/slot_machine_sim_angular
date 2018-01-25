@@ -154,7 +154,7 @@ export class AppComponent implements OnInit {
         this.balance = result.initialBalance;
         this.playerGroup = result.playerGroup;
         this.timerIntervalMinutes =  result.timerInterval;
-        this.timerInterval = 10000; // 1000 * 60 * this.timerIntervalMinutes;
+        this.timerInterval = 1000 * 60 * this.timerIntervalMinutes;
 
         this.isBusy = false;
         this.showPopUpOnTimerTick();

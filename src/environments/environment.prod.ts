@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'https://slotmachineapidotnetcore2.azurewebsites.net/api'
 };
+
