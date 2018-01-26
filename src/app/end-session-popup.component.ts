@@ -18,6 +18,7 @@ export class EndSessionPopUpComponent implements OnInit {
     @Input() finalBalance: number;
     @Input() totalNumBets: number;
     @Output() onSessionEndCancelled = new EventEmitter<boolean>();
+    @Output() onGameOver = new EventEmitter<boolean>();
 
     constructor(private spinResultService: SpinResultService) { }
 
@@ -40,5 +41,9 @@ export class EndSessionPopUpComponent implements OnInit {
             this.showConfirm = false;
             this.showEndSession = true;
           });
+    }
+
+    gameOver() {
+        this.onGameOver.emit(true);
     }
 }

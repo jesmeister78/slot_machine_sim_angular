@@ -14,7 +14,7 @@
             <div *ngIf="isRegistered">
                 <div *ngIf="showEndSessionPopUp" class="symbol-panel">
                     <app-end-session-popup [sessionId]="sessionId" [finalBalance]="balance" [totalNumBets]="getNumBets()"
-                        (onSessionEndCancelled)="closeAllPopUps()" (onSessionEndSubmitted)="submitAndClose()"></app-end-session-popup>
+                        (onSessionEndCancelled)="closeAllPopUps()" (onGameOver)="stopPlaying()"></app-end-session-popup>
                 </div>
                 <div *ngIf="showGrcs" class="symbol-panel">
                     <app-grcs [tickCount]="tickCount" [timerIntervalMinutes]="timerIntervalMinutes" [sessionId]="sessionId" 

@@ -67,6 +67,9 @@ export class AppComponent implements OnInit {
   playerId: string;
   isRegistered: boolean;
 
+  // shut it down
+  isGameOver = false;
+
   constructor(private spinResultService: SpinResultService, private loggerService: LoggerService) { }
 
   ngOnInit(): void {
@@ -91,17 +94,24 @@ export class AppComponent implements OnInit {
 
   }
 
+  stopPlaying() {
+    this.isGameOver = true;
+    this.isRegistered = false;
+  }
+
   showPopUpOnTimerTick() {
     setTimeout(() => {
-      this.tickCount++;
-      if (this.isInControlGroup()) {
-        this.showBiPolar = true;
-      }
-      if (this.isInInformationGroup()) {
-        this.showInfoPopUp = true;
-      }
-      if (this.isInSelfAppraisalGroup()) {
-        this.showStatsPopUp = true;
+      if (!this.isGameOver) {
+        this.tickCount++;
+        if (this.isInControlGroup()) {
+          this.showBiPolar = true;
+        }
+        if (this.isInInformationGroup()) {
+          this.showInfoPopUp = true;
+        }
+        if (this.isInSelfAppraisalGroup()) {
+          this.showStatsPopUp = true;
+        }
       }
     }, this.timerInterval);
   }
@@ -142,10 +152,10 @@ export class AppComponent implements OnInit {
     if (responseCollection.responseType === AnalogScaleResponseType.BiPolar) {
       this.closeBiPolarPopUp();
     } else if (responseCollection.responseType === AnalogScaleResponseType.Grcs) {
-        this.closeAllPopUps();
-        // once they have submitted grcs responses
-        // start the timer again so the next set of  questions can be displayed
-        this.showPopUpOnTimerTick();
+      this.closeAllPopUps();
+      // once they have submitted grcs responses
+      // start the timer again so the next set of  questions can be displayed
+      this.showPopUpOnTimerTick();
     }
   }
 
@@ -157,7 +167,7 @@ export class AppComponent implements OnInit {
         this.resultMap = result.resultMap;
         this.balance = result.initialBalance;
         this.playerGroup = result.playerGroup;
-        this.timerIntervalMinutes =  result.timerInterval;
+        this.timerIntervalMinutes = result.timerInterval;
         this.timerInterval = 1000 * 60 * this.timerIntervalMinutes;
         this.defaultBetAmount = result.defaultBetAmount;
         this.defaultNumRows = result.defaultNumRows;
