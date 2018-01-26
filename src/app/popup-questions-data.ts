@@ -3,29 +3,30 @@ import { BiPolarQuestion } from './bi-polar-question';
 
 export function getGRCSQuestions(applicableIndices: number[]): AnalogScaleQuestion[] {
     const statements = [
-        'Gambling makes me happier.', // 0
-        'I cannot function without gambling.', // 1
+        'My knowledge and skill in gambling contribute to the likelihood that I will make money.', // 0
+        'My choices or actions affect the game on which I am betting.', // 1
         'Praying helps me win.', // 2
-        'Losses when gambling, are bound to be followed by a series of wins', // 3
+        'Losses when gambling, are bound to be followed by a series of wins.', // 3
         'Relating my winnings to my skill and ability makes me continue gambling.', // 4
-        'Gambling makes things seem better.', // 5
-        'It is difficult to stop gambling as I am so out of control.', // 6
-        'Specific numbers and colours can help increase my chances of winning.', // 7
+        'If I am gambling and losing, I should continue because I don’t want to miss a win.', // 5
+        'I should keep track of previous winning bets so that I can figure out how I should bet in the future.', // 6
+        'When I am gambling, “near misses” or times when I almost win remind me that if I keep playing I will win.', // 7
         'A series of losses will provide me with a learning experience that will help me win later.', // 8
-        'Relating my losses to bad luck and bad circumstances makes me continue gambling.', // 9
-        'Gambling makes the future brighter.', // 10
-        'My desire to gamble is so overpowering.', // 11
-        'I collect specific objects that help increase my chances of winning.', // 12
+        'Gambling is more than just luck.', // 9
+        'My gambling wins are evidence that I have skill and knowledge related to gambling.', // 10
+        'I am pretty accurate at predicting when a “win” will occur.', // 11
+        'If I continue to gamble, it will eventually pay off and I will make money.', // 12
         'When I have a win once, I will definitely win again.', // 13
         'Relating my losses to probability makes me continue gambling.', // 14
-        'Having a gamble helps reduce tension and stress.', // 15
-        'I am not strong enough to stop gambling.', // 16
+        'If I lose money gambling, I should try to win it back.', // 15
+        `Even though I may be losing with my gambling strategy or plan, I must maintain that strategy or plan
+         because I know it will eventually come through for me.`, // 16
         'I have specific rituals and behaviours that increase my chances of winning.', // 17
-        'There are times that I feel lucky and thus, gamble those times only.', // 18
-        'Remembering how much money I won last time makes me continue gambling.', // 19
-        'I will never be able to stop gambling.', // 20
-        'I have some control over predicting my gambling wins.', // 21
-        'If I keep changing my numbers, I have less chances of winning than if I keep the same numbers every time' // 22
+        `There are certain things I do when I am betting (for example, tapping a certain number of times,
+         holding a lucky coin in my hand, crossing my fingers, etc.) which increase the chances that I will win.`, // 18
+        'I am pretty accurate at predicting when a “win” will occur.', // 19
+        'If I continue to gamble, it will eventually pay off and I will make money.', // 20
+        'I have some control over predicting my gambling wins.'
     ];
 
     const mandatoryStatements = [
