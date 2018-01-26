@@ -1,29 +1,32 @@
 <form>
     <div class="form-group">
         <label for="tbBalance">Balance</label>
-        <input type="text" value="{{balance}}" class="form-control" id="tbBalance" aria-describedby="balanceHelp" 
-            placeholder="Balance" readonly>
+        <input type="text" value="{{balance}}" class="form-control" id="tbBalance" aria-describedby="balanceHelp" placeholder="Balance"
+            readonly>
         <small id="balanceHelp" class="form-text text-muted">Your remaining credits</small>
     </div>
     <div class="form-group">
         <label for="tbBetAmount">Bet Amount</label>
-        <input type="text" class="form-control" [(ngModel)]="betAmount"  id="tbBetAmount" aria-describedby="betAmountHelp" 
-        placeholder="Enter bet amount" name="tbBetAmount">
+        <input type="text" class="form-control" [(ngModel)]="betAmount" id="tbBetAmount" aria-describedby="betAmountHelp" placeholder="Enter bet amount"
+            name="tbBetAmount">
         <small id="betAmountHelp" class="form-text text-muted">Amount bet on each row</small>
     </div>
     <div class="form-group">
         <label for="tbNumRows">Number of Rows</label>
-        <input type="text" class="form-control" [(ngModel)]="numRows" id="tbNumRows" aria-describedby="numRowsHelp" 
-        placeholder="Enter number of rows" name="tbNumRows">
+        <!-- <select class="form-control" [(ngModel)]="numRows"  (ngModelChange)="changeNumRows($event)" aria-describedby="numRowsHelp"> -->
+            <select class="form-control" [(ngModel)]="numRows"  (change)="changeNumRows($event.target.value)" aria-describedby="numRowsHelp">
+            <option *ngFor="let row of rows" [value]="row" [selected]="row === numRows">{{row}}</option>
+        </select>
         <small id="numRowsHelp" class="form-text text-muted">The number of rows you are betting on</small>
     </div>
     <div class="form-group">
         <label for="tbBetTotal">Total Bet Cost</label>
-        <input type="text" class="form-control" value="{{getTotalBetCost()}}" id="tbBetTotal" aria-describedby="betTotalHelp" placeholder="Toal Bet Cost" readonly>
+        <input type="text" class="form-control" value="{{totalBetCost}}" id="tbBetTotal" aria-describedby="betTotalHelp" placeholder="Toal Bet Cost"
+            readonly>
         <small id="betTotalHelp" class="form-text text-muted">The bet amount multiplied by the number of rows</small>
     </div>
     <div class="form-group">
-        <button class="btn btn-primary" (click)="spin(betAmount)" [disabled]="isBusy">Spin!</button>
+        <button class="btn btn-primary" (click)="spin()" [disabled]="isBusy">Spin!</button>
     </div>
     <div class="form-group">
         <button class="btn btn-secondary" (click)="endSession()" [disabled]="isBusy">End Session</button>

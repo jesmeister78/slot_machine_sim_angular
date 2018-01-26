@@ -19,17 +19,34 @@ export class UserInterfaceComponent implements OnInit {
     @Input('isBusy') isBusy: boolean;
     @Input() balance: number;
     @Input() betAmount: number;
-    @Input() numRows: number;
-
+    // @Input() defaultNumRows: number;
     @Output() onSpin = new EventEmitter<BetRecord>();
     @Output() onSessionEnd = new EventEmitter<boolean>();
+    _defaultNumRows: number;
 
+    @Input()
+    set defaultNumRows(defaultNumRows: number) {
+        // populate the model for the select
+        for (let i = 1; i <= defaultNumRows; i++) {
+            this.rows.push(i);
+        }
+        // set the local var
+        this._defaultNumRows = defaultNumRows;
+        // set the default selection
+        this.numRows = defaultNumRows;
+    }
+    // get defaultNumRows(): number { return this._defaultNumRows; }
+    numRows: number;
+    rows: number[];
     defaults: DefaultParams;
     playerId: string;
+
+    get totalBetCost(): number { return this.betAmount * this.numRows; }
 
     ngOnInit(): void {
         // get the defaults from the server
         this.defaults = this.spinResultService.getDefaults();
+        this.rows = [];
     }
     /**
      *
@@ -37,13 +54,13 @@ export class UserInterfaceComponent implements OnInit {
     constructor(private spinResultService: SpinResultService, private loggerService: LoggerService) {
     }
 
-    getTotalBetCost(): number {
-        return this.betAmount * this.numRows || 0;
+    changeNumRows(newNum: number) {
+        this.numRows = newNum;
     }
 
-    spin(amt) {
-        if (this.validateBetAmount(amt)) {
-            this.loggerService.log('spin: bet amount: ' + amt);
+    spin() {
+        if (this.validateBetAmount()) {
+            this.loggerService.log(`spin: bet amount: ${this.betAmount}`);
             const bet = this.createBetRecord();
             // emit an event so that the app component can redraw the symbol map
             this.onSpin.emit(bet);
@@ -70,9 +87,18 @@ export class UserInterfaceComponent implements OnInit {
         return bet;
     }
 
-    validateBetAmount(val) {
-        if (isNaN(val)) {
-            this.loggerService.log('spin: invalid bet amount: ' + val);
+    validateBetAmount() {
+        let errorMsg = '';
+        if (this.totalBetCost > this.balance) {
+            errorMsg = 'spin: bet amount cannot exceed balance';
+        }
+
+        if (isNaN(this.betAmount)) {
+            errorMsg = 'spin: invalid bet amount: ' + this.betAmount;
+        }
+
+        if (errorMsg) {
+            this.loggerService.log(errorMsg);
             this.betAmount = 0;
             return false;
         }

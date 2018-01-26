@@ -36,7 +36,6 @@ export class AppComponent implements OnInit {
 
   balance: number;
 
-  numRows: number;
   // positions of the symbols determined by the server
   resultMap: number[][];
   // string representation of the symbolType enum from the server
@@ -83,7 +82,6 @@ export class AppComponent implements OnInit {
 
     this.tickCount = 0;
   }
-
 
   startPlaying(playerId: string) {
     this.playerId = playerId;
@@ -175,6 +173,7 @@ export class AppComponent implements OnInit {
         this.showPopUpOnTimerTick();
       });
   }
+
 
   getBetResult(betAmount: number, numRows: number) {
     this.isBusy = true;
