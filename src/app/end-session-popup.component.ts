@@ -1,6 +1,8 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { BasePopUp } from './base-popup';
 import { OnInit } from '@angular/core';
+import { EndSessionCommand } from './end-session-command';
+import { SpinResultService } from './spin-result.service';
 
 @Component({
     selector: 'app-end-session-popup',
@@ -8,12 +10,16 @@ import { OnInit } from '@angular/core';
 })
 
 export class EndSessionPopUpComponent implements OnInit {
+    // control visibility of confirm and final popups
     showEndSession: boolean;
     showConfirm: boolean;
-    @Input() timePlayed: number;
-    @Input() numBets: number;
-    @Output() onSessionEndSubmitted = new EventEmitter<boolean>();
+
+    @Input() sessionId: string;
+    @Input() finalBalance: number;
+    @Input() totalNumBets: number;
     @Output() onSessionEndCancelled = new EventEmitter<boolean>();
+
+    constructor(private spinResultService: SpinResultService) { }
 
     ngOnInit(): void {
         this.showConfirm = true;
@@ -25,11 +31,14 @@ export class EndSessionPopUpComponent implements OnInit {
     }
 
     confirmSessionEnd() {
-        this.showConfirm = false;
-        this.showEndSession = true;
-    }
-
-    submitEndSession() {
-
+        const cmd = new EndSessionCommand();
+        cmd.sessionId = this.sessionId;
+        cmd.finalBalance = this.finalBalance;
+        cmd.totalNumBets = this.totalNumBets;
+        this.spinResultService.finaliseSession(cmd)
+          .then(result => {
+            this.showConfirm = false;
+            this.showEndSession = true;
+          });
     }
 }

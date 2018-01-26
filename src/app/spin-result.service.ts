@@ -13,6 +13,7 @@ import { InitModel } from './init.model';
 import { SaveResponseModel } from './save-response.model';
 import { AnalogScaleResponse } from './analog-scale-response';
 import { environment } from '../environments/environment';
+import { EndSessionCommand } from './end-session-command';
 
 @Injectable()
 export class SpinResultService {
@@ -75,6 +76,20 @@ export class SpinResultService {
             },
             error => {
                 this.loggerService.log(`saveAnalogScaleResponses() - error returned from server: ${error}`);
+                return Promise.reject('Server returned an error please check the console');
+            });
+    }
+
+    finaliseSession(cmd: EndSessionCommand): Promise<SaveResponseModel> {
+        const finaliseSessionUrl = `${this.apiUrl}/values/finalise`;
+        return this.http.post(finaliseSessionUrl, cmd, this.options).toPromise()
+            .then(response => {
+                const result = response.json() as SaveResponseModel;
+                this.loggerService.log(`finaliseSession() - saved to server: ${result.status}`);
+                return result;
+            },
+            error => {
+                this.loggerService.log(`finaliseSession() - error returned from server: ${error}`);
                 return Promise.reject('Server returned an error please check the console');
             });
     }
