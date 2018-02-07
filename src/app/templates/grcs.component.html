@@ -1,4 +1,4 @@
-<div class="symbol-panel" style="color:white;">
+<div class="symbol-panel" style="color:white; background-color:black;">
     <div>
         <div>
             Please indicate the extent to which you agree with the value expressed in each statement
@@ -13,29 +13,29 @@
             <li>7 = strongly agree</li>
         </ul>
     </div>
-    <div>
-        <div *ngFor="let question of questions">
+    <div style="color:white; background-color:black;">
+        <div *ngFor="let question of questions" style="color:white; background-color:black;">
             <div class="row">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label class="grcs-question">{{question.questionText}}</label>
-                    </div>
+                <div class="col-sm-12">
+                    <label class="grcs-question">{{question.questionText}}</label>
                 </div>
-                <div class="row">
-                    <div class="col=sm-12">
-                        <form class="form-inline">
-                            <div class="form-group" *ngFor="let score of scoreRange" style="margin-left:20px;">
-                                <input type="radio" name="{{question.questionId}}" [(ngModel)]="question.answer" [value]="score" [checked]="score === question.answer"
-                                    style="margin-left: 15px;" />
-                                <label for="{{score}}" style="margin-left:10px;">{{score}}</label>
-                            </div>
-                        </form>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col=sm-12">
+                    <form class="form-inline">
+                        <div class="form-group" *ngFor="let score of scoreRange" style="margin-left:20px;">
+                               <input type="radio" name="{{question.questionId}}" [(ngModel)]="question.answer" [value]="score" 
+                               (ngModelChange)="checkAllQuestionsAnswered()"
+                               [checked]="score === question.answer"
+                                style="margin-left: 15px;" />
+                            <label for="{{score}}" style="margin-left:10px;">{{score}}</label>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="grcs-submit" style="margin-top:10px;">
-        <button  class="btn btn-secondary" (click)="submitAnalogScaleAnswers()">Submit Answers</button>
+    <div class="grcs-submit" style="margin-top:10px; background-color:black; width:500px;">
+        <button class="btn btn-secondary" [disabled]="!allQuestionsAnswered" (click)="submitAnalogScaleAnswers()">Submit Answers</button>
     </div>
 </div>

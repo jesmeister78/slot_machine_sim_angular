@@ -14,7 +14,8 @@
                     <div class="form-group" id="rbgBiPolar">
                         <label class="radio-inline" *ngFor="let score of scoreRange">
                             <input type="radio" name="{{question.questionId}}" [(ngModel)]="question.answer" 
-                            [value]="score" [checked]="score === question.answer" style="margin-left: 15px;"
+                            [value]="score"
+                            (ngModelChange)="checkAllQuestionsAnswered()" [checked]="score === question.answer" style="margin-left: 15px;"
                             /> {{score}}
                         </label>
                     </div>
@@ -26,6 +27,6 @@
         </form>
     </div>
     <div class="grcs-submit" style="margin-top:10px;">
-        <button class="btn btn-secondary" (click)="submitAnalogScaleAnswers()">Submit Answers</button>
+        <button class="btn btn-secondary" [disabled]="!allQuestionsAnswered" (click)="submitAnalogScaleAnswers()">Submit Answers</button>
     </div>
 </div>

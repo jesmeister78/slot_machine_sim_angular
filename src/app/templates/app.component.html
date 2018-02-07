@@ -9,20 +9,18 @@
         <div class="col-sm-3">
 
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6" style="background-color:black; height:500px;">
             <app-registration *ngIf="!isRegistered" (onPlayerRegistered)="startPlaying($event)"></app-registration>
-            <div *ngIf="isRegistered">
+            <div *ngIf="isRegistered" style="padding-left: 0px; padding-right:0px;">
                 <div *ngIf="showEndSessionPopUp" class="symbol-panel">
-                    <app-end-session-popup [sessionId]="sessionId" [finalBalance]="balance" [totalNumBets]="getNumBets()"
-                        (onSessionEndCancelled)="closeAllPopUps()" (onGameOver)="stopPlaying()"></app-end-session-popup>
+                    <app-end-session-popup [sessionId]="sessionId" [finalBalance]="balance" [totalNumBets]="getNumBets()" (onSessionEndCancelled)="closeAllPopUps()"
+                        (onGameOver)="stopPlaying()"></app-end-session-popup>
                 </div>
                 <div *ngIf="showGrcs" class="symbol-panel">
-                    <app-grcs [tickCount]="tickCount" [timerIntervalMinutes]="timerIntervalMinutes" [sessionId]="sessionId" 
-                        (onAnswersSubmitted)="updateAnalogScaleResponses($event)"></app-grcs>
+                    <app-grcs [tickCount]="tickCount" [timerIntervalMinutes]="timerIntervalMinutes" [sessionId]="sessionId" (onAnswersSubmitted)="updateAnalogScaleResponses($event)"></app-grcs>
                 </div>
                 <div *ngIf="showBiPolar" class="symbol-panel">
-                    <app-bi-polar [tickCount]="tickCount" [timerIntervalMinutes]="timerIntervalMinutes" [sessionId]="sessionId" 
-                        (onAnswersSubmitted)="updateAnalogScaleResponses($event)"></app-bi-polar>
+                    <app-bi-polar [tickCount]="tickCount" [timerIntervalMinutes]="timerIntervalMinutes" [sessionId]="sessionId" (onAnswersSubmitted)="updateAnalogScaleResponses($event)"></app-bi-polar>
                 </div>
                 <div *ngIf="showInfoPopUp" class="symbol-panel">
                     <app-info-popup [tickCount]="tickCount" (onPopUpClosed)="closeInfoPopUp()"></app-info-popup>
@@ -38,9 +36,8 @@
             </div>
         </div>
         <div class="col-sm-3">
-            <app-user-interface  *ngIf="isRegistered" [betAmount]="defaultBetAmount" [defaultNumRows]="defaultNumRows" 
-                [isBusy]="isBusy" [balance]="balance" (onSpin)="doSpin($event)" 
-                (onSessionEnd)="endSession($event)"></app-user-interface>
+            <app-user-interface *ngIf="isRegistered" [betAmount]="defaultBetAmount" [defaultNumRows]="defaultNumRows" [isBusy]="isBusy"
+                [balance]="balance" (onSpin)="doSpin($event)" (onSessionEnd)="endSession($event)"></app-user-interface>
 
         </div>
     </div>

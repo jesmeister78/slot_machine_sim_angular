@@ -20,29 +20,14 @@
     </div>
     <div *ngIf="showEndSession">
         <div class="panel panel-primary">
-            <div class="panel-heading"> 
-                Thank you for participating in this study. We are sincerely grateful. Your participation will assist in developing
-                some targeted strategies to reduce problematic slot machine use.
-            </div>
-            <div class="panel-body" style="max-height: 10;overflow-y: scroll;">
-                Want to boost your final credit value to increase your chance of winning one of the $50 vouchers? To do so, you
-                just need to recruit others who you think may be eligible for this study (those who are over 18 years old
-                and have played a slot machine/pokies in the last 12 months, either online or actual physical slot machines/pokies).
-                To invite participants, you can email them or post the study's advert below to your social media profiles
-                (e.g. to your Facebook profile). We will add $10 to the final credits you had remaining at the end of the
-                study for every participant you recruited; this will increase your chances of winning one of the two $50
-                vouchers. In order to ensure we know that the participant has been invited by you, the participant will be
-                asked to provide the email address that you provided us when completing the study. Note: when posting the
-                advert below, add a sentence asking potential participants to quote your email address when prompted to in
-                the study.
-            </div>
-            <div class="panel-body" style="background-color:black">
-                One more thing: please press the following link to provide a final rating of your thoughts about gambling. It will take less than a minute. Thank you!<br/>
-                <a href="https://monash.az1.qualtrics.com/jfe/form/SV_1Ont5L8WAws6js1">click me</a>
+            <div class="panel-heading">
+                Almost there! To finish the study you need to click the link below to answer some final questions (there are only a few,
+                so this will take less than a minute). Thank you!
             </div>
         </div>
         <div class="grcs-submit" style="margin-top:10px;">
-            <button class="btn btn-secondary" (click)="gameOver()">Game Over</button>
+            <a class="btn btn-secondary" href="https://monash.az1.qualtrics.com/jfe/form/SV_1Ont5L8WAws6js1">
+                Click here to answer final questions</a>
         </div>
     </div>
 </div>

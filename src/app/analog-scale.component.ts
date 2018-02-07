@@ -21,13 +21,23 @@ export class AnalogScaleComponent implements OnInit {
     protected totalNumQuestions = 20;
     questions: AnalogScaleQuestion[];
     responseType: AnalogScaleResponseType;
-
+    allQuestionsAnswered: boolean;
     scoreRange: number[];
 
     ngOnInit(): void {
         this.questions = [];
+        this.allQuestionsAnswered = false;
     }
 
+    checkAllQuestionsAnswered(): void {
+        let answered = true;
+        this.questions.forEach(q => {
+            if (q.answer === undefined) {
+                answered = false;
+            }
+        });
+        this.allQuestionsAnswered = answered;
+    }
 
     submitAnalogScaleAnswers() {
         const responseCollection = new AnalogScaleResponseCollection();

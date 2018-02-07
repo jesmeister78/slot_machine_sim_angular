@@ -99,7 +99,7 @@ export class AppComponent implements OnInit {
 
   showPopUpOnTimerTick() {
     setTimeout(() => {
-      if (!this.isGameOver) {
+      if (!this.isGameOver && !this.showGrcs) {
         this.tickCount++;
         if (this.isInControlGroup()) {
           this.showBiPolar = true;
@@ -183,7 +183,11 @@ export class AppComponent implements OnInit {
         this.resultMap = result.resultMap;
         this.balance = parseFloat((this.balance + result.winAmount).toFixed(2));
 
-        this.isBusy = false;
+        setTimeout(() => {
+          this.isBusy = false;
+        }, 1000);
+
+
       });
   }
 

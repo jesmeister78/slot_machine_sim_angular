@@ -31,8 +31,10 @@ export function getGRCSQuestions(applicableIndices: number[]): AnalogScaleQuesti
 
     const mandatoryStatements = [
         // mandatory question comes up every time
-        'I have a strong urge to continue gambling right now' // 23
+        'All I want to do now is to gamble',
+        'I would find it difficult to resist gambling right now' // 23
     ];
+
 
     const questions = [];
     mandatoryStatements.forEach((q, idx) => {

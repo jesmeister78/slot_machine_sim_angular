@@ -1,11 +1,13 @@
 <form>
     <div class="form-group">
-        <label for="emlPlayerId">Please enter your email address to begin playing 
+        <label for="emlPlayerId">
+            Please enter your email address (or identifying word you selected when answering questions previously) to begin playing 
             (note, this email address allows us to match the data from this session to your data in Qualtrics 
             - where you just came from to get here - and it will allow us to contact you if you win a voucher; 
             as soon as this is done, your email address will be deleted - we will not store it, 
             we will not contact you for any reason other than if you win the voucher, 
-            and we will not make it available to any third parties)</label>
+            and we will not make it available to any third parties)
+        </label>
         <input type="email" [(ngModel)]="playerId" class="form-control" id="emlPlayerId" aria-describedby="playerIdHelp" 
             placeholder="Enter email" name="emlPlayerId" >
         <small id="playerIdHelp" class="form-text text-muted">You need to register by entering your email address</small>
