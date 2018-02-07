@@ -32,7 +32,7 @@ export function getGRCSQuestions(applicableIndices: number[]): AnalogScaleQuesti
     const mandatoryStatements = [
         // mandatory question comes up every time
         'All I want to do now is to gamble',
-        'I would find it difficult to resist gambling right now' // 23
+        'I would find it difficult to stop gambling right now' // 23
     ];
 
 
@@ -44,12 +44,12 @@ export function getGRCSQuestions(applicableIndices: number[]): AnalogScaleQuesti
         question.questionText = q;
         questions.push(question);
     });
-    applicableIndices.forEach((q, idx) => {
+   /*  applicableIndices.forEach((q, idx) => {
         const question = new AnalogScaleQuestion();
         question.questionId = idx;
         question.questionText = statements[q];
         questions.push(question);
-    });
+    }); */
     return questions;
 }
 

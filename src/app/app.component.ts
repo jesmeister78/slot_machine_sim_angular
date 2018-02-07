@@ -131,7 +131,9 @@ export class AppComponent implements OnInit {
     this.showStatsPopUp = false;
     this.showEndSessionPopUp = false;
     this.showBiPolar = false;
+    this.showGrcs = true;
   }
+
 
   // once the user closes the info popup they need to answer the bipolar questions
   closeInfoPopUp() {
@@ -147,14 +149,13 @@ export class AppComponent implements OnInit {
     this.spinResultService.saveAnalogScaleResponses(responseCollection.responses);
     // hide the appropriate popup panel
     if (responseCollection.responseType === AnalogScaleResponseType.BiPolar) {
-      // this.closeBiPolarPopUp();
-      this.closeAllPopUps();
+      this.closeBiPolarPopUp();
+      // this.closeAllPopUps();
       // once they have submitted bipolar responses
       // start the timer again so the next set of  questions can be displayed
       this.showPopUpOnTimerTick();
     } else if (responseCollection.responseType === AnalogScaleResponseType.Grcs) {
       this.showGrcs = false;
-      this.showEndSessionPopUp = true;
     }
   }
 
@@ -207,7 +208,8 @@ export class AppComponent implements OnInit {
 
   endSession() {
     this.closeAllPopUps();
-    this.showGrcs = true;
+    this.showEndSessionPopUp = true;
+
   }
 
   getNumBets() {
