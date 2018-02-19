@@ -49,6 +49,8 @@ export class AnalogScaleComponent implements OnInit {
             response.answer = q.answer;
             response.numMinutesPlayed = numMinutesPlayed;
             response.sessionId = this.sessionId;
+            // add the responses to the collection
+            responseCollection.responses.push(response);
         });
         // clear the questions collection
         this.questions = [];
