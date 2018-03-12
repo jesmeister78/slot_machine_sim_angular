@@ -46,6 +46,7 @@ export class AnalogScaleComponent implements OnInit {
 
         this.questions.forEach(q => {
             const response = new AnalogScaleResponse();
+            response.questionId = q.questionId;
             response.answer = q.answer;
             response.numMinutesPlayed = numMinutesPlayed;
             response.sessionId = this.sessionId;
