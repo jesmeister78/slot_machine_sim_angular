@@ -93,7 +93,7 @@ export class UserInterfaceComponent implements OnInit {
             errorMsg = 'spin: bet amount cannot exceed balance';
         }
 
-        if (isNaN(this.betAmount)) {
+        if (isNaN(this.betAmount) || this.betAmount <= 0) {
             errorMsg = 'spin: invalid bet amount: ' + this.betAmount;
         }
 
